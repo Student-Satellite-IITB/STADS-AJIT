@@ -1,0 +1,1 @@
+Here, pixel spread used was 13 and threshold value was 14
