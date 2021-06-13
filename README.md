@@ -10,9 +10,10 @@ This repository contains relevant codes and documentation of different algorithm
 
 ## Note
  1. Centroid extraction (Feature Extraction)
- >   * Repo currently has C++ codes, C- codes will be added soon
+ >   * Repo currently has C and C++ codes
  >  *  Inputs to Centroid extraction code are Image_n.txt files, added in FE_test cases folder
 >  *  Outputs to Centroid extraction code are st_input_n.txt files, added in Star matching test cases folder. (Output from CE block is input to the star matching block)
+>  * **Remark**: To test both the functions(region_growth, pixel_by_pixel), put image files from FE_Test_cases folder and the codes in the same directory. Follow respective READMEs to understand output files.
 
 2. Star Matching
 > * Documentaion and resources are added, C-codes will be added soon
