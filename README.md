@@ -19,4 +19,5 @@ This repository contains relevant codes and documentation of different algorithm
 > * Documentaion and resources are added, C-codes will be added soon
 
 2. Estimation
-> * Documentaion, resources and C-codes will be added soon.
+> * This folder has C-code for QUEST(estimation algorithm).
+> * Follow "Quest_Readme.pdf" for more details
