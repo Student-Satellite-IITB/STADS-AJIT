@@ -1,6 +1,6 @@
 [<img src="https://www.aero.iitb.ac.in/satlab/images/IITBSSP2019.png" width="150"/>](image.png) 
 
-## Student Satellite Project - Indian Institude of Technology, Bombay
+# Student Satellite Program - Indian Institute of Technology Bombay
 
 ## AJIT-STADS Collaboration
 
@@ -9,7 +9,7 @@ This repository contains relevant codes and documentation of different algorithm
 
 Conceived in IIT Bombay, AJIT is one of India's first indigenously developed microprocessors.
 
-## Note
+## Repository Structure
  1. Feature Extraction (FE)
  >  * Repo currently has C and C++ codes
  >  * Inputs to Centroid Extraction algorithm are `Image_n.txt` files, hosted in [Feature Extraction/Test_cases](Feature%20Extraction/Test_cases)
