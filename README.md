@@ -1,6 +1,6 @@
-[<img src="https://www.aero.iitb.ac.in/satlab/images/IITBSSP2019.png" width="150"/>](image.png) [<img src="https://www.iitb.ac.in/sites/www.iitb.ac.in/files/styles/large/public/reshigh/2019-05/pic3_0.jpg?itok=681OZI0a" width="150"/>](image.png)
+[<img src="https://www.aero.iitb.ac.in/satlab/images/IITBSSP2019.png" width="150"/>](image.png) 
 
-## Student Satellite Project - Indian Institude of Technology, Bombay
+# Student Satellite Program - Indian Institute of Technology Bombay
 
 ## AJIT-STADS Collaboration
 
