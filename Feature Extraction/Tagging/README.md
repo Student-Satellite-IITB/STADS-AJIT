@@ -2,7 +2,7 @@
 
 > In some contexts, referred to as the 'pixel_by_pixel' algorithm
 
-`fe_pixel_by_pixel` and `fe_tagging` refer to the same algorithm. 
+fe_pixel_by_pixel and fe_tagging refer to the same algorithm. 
 The function broadly has two subfunctions, `tag_2()` and `merge_tag()`, the README for which can be found [here](README/README%20MATLAB%20Functions)
 
 The flowcharts for the two subfunctions can be found under the flowcharts subdirectory
