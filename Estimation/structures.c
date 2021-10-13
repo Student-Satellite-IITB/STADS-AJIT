@@ -4,20 +4,20 @@
 typedef struct Vec Vec;
 typedef struct Matrix_3 Matrix_3;
 
-void Vec_construct(Vec *temp, double x,double y,double z);
-void cross(Vec* temp,Vec* vec1,Vec* vec2);
-double dot(Vec* vec1,Vec* vec2);
-void scale_vec(Vec *temp,double k);
-void add_vec(Vec *temp,Vec* vec1,Vec* vec2);
-void matrix_construct(Matrix_3 *temp,unsigned char x);
+void Vec_construct(Vec *temp, double x,double y,double z); // Construct a vector 
+void cross(Vec* temp,Vec* vec1,Vec* vec2); // Takes cross product : vec1 * vec2 and stores it in temp
+double dot(Vec* vec1,Vec* vec2); // Takes the dot product
+void scale_vec(Vec *temp,double k); // Scales a vector by a scalar (modifies the input)
+void add_vec(Vec *temp,Vec* vec1,Vec* vec2); //Adds 2 vectors and stores in temp
+void matrix_construct(Matrix_3 *temp,unsigned char x); // Based on x, Matrix is constructed - can be a zero matrix or an identity matrix
 void add_matrix(Matrix_3 *temp,Matrix_3 *m1,Matrix_3 *m2);
-void scale_matrix(Matrix_3 *temp,Matrix_3 *M,double k); // This modifies the input matrix
-double det(Matrix_3 *temp);
+void scale_matrix(Matrix_3 *temp,Matrix_3 *M,double k); // scales a matrix by a scalar (modifies the input matrix)
+double det(Matrix_3 *temp); // takes the determinant of the matrix
 double trace(Matrix_3 *temp);
-void T(Matrix_3 *temp,Matrix_3 *m1);
-void adjoint(Matrix_3 *temp,Matrix_3* m);
-void outer_product(Matrix_3* temp,Vec* v1,Vec* v2);
-void matmul(Vec* temp,Matrix_3* M,Vec *v);
+void T(Matrix_3 *temp,Matrix_3 *m1); // Takes the transpose of m and stores in temp
+void adjoint(Matrix_3 *temp,Matrix_3* m); // adjoint of m is stored in temp
+void outer_product(Matrix_3* temp,Vec* v1,Vec* v2); // v1 v2^T = temp (Outer product in this order)
+void matmul(Vec* temp,Matrix_3* M,Vec *v); // temp = Mv (Matrix and vector multiplication in this order)
 
 struct Vec{
 	double x,y,z;
@@ -126,19 +126,3 @@ void matmul(Vec* temp,Matrix_3* M,Vec *v){
 	temp->y = M->elements[1][0]*v->x + M->elements[1][1]*v->y + M->elements[1][2]*v->z;
 	temp->z = M->elements[2][0]*v->x + M->elements[2][1]*v->y + M->elements[2][2]*v->z;
 }
-/*
-int main(){
-    Vec a;
-    Vec_construct(&a, 12,13,14);
-    Vec b;
-    Vec_construct(&b, 22,23,4);
-    Matrix_3 A1,A2,A;
-    outer_product(&A1,&a,&b);
-    outer_product(&A2,&b,&a);
-    add_matrix(&A,&A1,&A2); // construct S		
-    Matrix_3 adj_A;
-    adjoint(&adj_A,&A);
-    return 0;
-
-}
-*/

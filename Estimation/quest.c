@@ -4,22 +4,22 @@
 #include <string.h>
 #include <stdlib.h>
 
-void quest(double **data)
+void quest(double **data) // Based upon the input data, this function prints the components of the estimated quaternion
 {
 	unsigned char N = 5;
 	Vec b[N];Vec r[N];
 
-	double epsilon = 0.15;
+	double epsilon = 0.15; // epsilon is the threshold error which when exceeded would require rotation
 
-	double a[N];
+	double a[N]; // weight vector
 	a[0] = 1.0/N;a[1] = 1.0/N;a[2] = 1.0/N;a[3] = 1.0/N;a[4] = 1.0/N;
-	double guess = 1;
+	double guess = 1; // initial guess
 	Matrix_3 B,S;
-	matrix_construct(&B,0);
+	matrix_construct(&B,0); // Constructs a 3*3 Matrix with all zeroes 
 	matrix_construct(&S,0);
 	Vec z;
-	Vec_construct(&z,0,0,0);
-	unsigned char counter = 0;
+	Vec_construct(&z,0,0,0); // Constructs a 3*1 vector with all zeroes
+	unsigned char counter = 0; // counter used in the do while loop below
 	double K;
 	double norm_2_z;
 	double det_S;
@@ -31,21 +31,21 @@ void quest(double **data)
 	// We have the csv file stored in **data
 	for(int i = 0;i < 10;i++){ // i is the column number
 		if(i < 5){
-			Vec_construct(&r[i],data[0][i],data[1][i],data[2][i]);
+			Vec_construct(&r[i],data[0][i],data[1][i],data[2][i]); // Construct r vectors according to the data read
 		}
 		else{
-			Vec_construct(&b[i-5],data[0][i],data[1][i],data[2][i]);
+			Vec_construct(&b[i-5],data[0][i],data[1][i],data[2][i]); // Construct b vectors according to the data read
 		}
 	}
 	
 	
 	// Perform Quest
-	double f(double x){
+	double f(double x){ // This is the function whose roots are found using Newton Rapshon 
 		double first = (x*x - trace_B*trace_B + K)*(x*x - trace_B*trace_B - norm_2_z);
 		double second = (x - trace_B)*(zTSz + det_S);
 		return (first - second - zTSSz);
 	}
-	double f_bar(double x){
+	double f_bar(double x){//This is the derivative of the function whose roots are found using Newton Rapshon 
 		double temp = 2*x*(2*x*x - 2*trace_B*trace_B + K - norm_2_z);
 		return (temp - zTSz - det_S);
 	}
@@ -83,16 +83,15 @@ void quest(double **data)
 			scale_vec(&temp,a[i]);
 			add_vec(&z,&z,&temp);
 		}
-		//rho = lambda_max(guess,B,z) + B.trace();
 
 		trace_B = trace(&B);
-		T(&S,&B);
+		T(&S,&B); // Takes the Transponse of a matrix
 		add_matrix(&S,&S,&B); // construct S
-		adjoint(&adj_S,&S);
+		adjoint(&adj_S,&S); // Takes the adjoint of a matrix
 		K = trace(&adj_S);
 		norm_2_z = z.x*z.x + z.y*z.y + z.z*z.z;
-		det_S = det(&S);
-		Vec temp1,temp2;
+		det_S = det(&S); // Takes the determinant of a matrix
+		Vec temp1,temp2; // temporary variables
 		matmul(&temp1,&S,&z);
 		zTSz = dot(&z,&temp1);
 		matmul(&temp2,&S,&temp1);
@@ -157,7 +156,7 @@ printf("q_4 = %lf \n", q_4/alpha);
 
 }
 
-
+// --------------------------------------------------------- READING THE CSV FILE -------------------------------------------
 void read_csv(int row, int col, char *filename, double **data){
 	FILE *file;
 	file = fopen(filename, "r");
@@ -178,7 +177,7 @@ void read_csv(int row, int col, char *filename, double **data){
         i++;
     }
 }
-
+// ------------------------------------------------------------------------------
 int main(int argc, char const *argv[])
 {
 	/* code */
