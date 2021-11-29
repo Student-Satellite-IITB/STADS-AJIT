@@ -1,0 +1,243 @@
+
+<pre>CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,5546701]. -13.583332
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,5571891]. 49.083332
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,5595674]. 0
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,5613306]. -50.470589
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,5637289]. 50.470589
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,5661184]. 1
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,5678821]. -41.338711
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,5702804]. 45.790321
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,5726667]. 2
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,5744352]. -48.631149
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,5768239]. 46.450821
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,5792118]. 3
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,5809739]. 25.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,5833606]. 42.125000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,5857389]. 4
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,5875010]. 5.375000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,5898618]. 38.625000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,5922417]. 5
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,5940108]. -46.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,5964027]. 33.071426
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,5987810]. 6
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,6005431]. -41.954544
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,6029382]. 46.469696
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,6053165]. 7
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,6070802]. -48.631149
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,6094689]. 47.713116
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,6118632]. 8
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,6136253]. 25.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,6160296]. 33.750000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,6184079]. 9
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,6201700]. 5.375000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,6225308]. 30.250000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,6249091]. 10
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,6267024]. -46.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,6290911]. 23.071428
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,6315062]. 11
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,6332877]. -45.772728
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,6356860]. 40.009090
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,6380643]. 12
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,6398458]. -48.631149
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,6422473]. 44.073769
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,6446416]. 13
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,6464231]. 25.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,6488098]. 24.625000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,6511881]. 14
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,6529696]. 5.375000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,6553304]. 21.125000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,6577087]. 15
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,6594902]. -46.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,6618789]. 12.928570
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,6642758]. 16
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,6660643]. -46.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,6684594]. 44.642857
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,6708473]. 17
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,6726288]. -48.631149
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,6750175]. 45.385246
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,6774006]. 18
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,6791821]. 25.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,6815848]. 16.250000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,6839695]. 19
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,6857510]. -36.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,6881397]. 48.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,6905180]. 20
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,6922995]. -13.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,6946882]. 44.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,6970681]. 21
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,6988566]. 1.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,7012174]. 45.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,7035957]. 22
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,7053772]. 45.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,7077639]. 44.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,7101422]. 23
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,7119237]. 23.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,7143344]. 44.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,7167127]. 24
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,7185054]. -36.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,7208941]. 38.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,7232724]. 25
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,7250539]. -13.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,7274442]. 34.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,7298225]. 26
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,7316110]. 1.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,7339750]. 35.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,7363581]. 27
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,7381748]. 45.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,7405647]. 34.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,7429510]. 28
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,7447325]. 23.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,7471240]. 34.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,7495023]. 29
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,7512950]. -36.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,7536901]. 28.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,7560684]. 30
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,7578515]. -13.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,7602402]. 24.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,7626473]. 31
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,7644288]. 1.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,7667896]. 25.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,7691679]. 32
+
+^[[BCoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,7709564]. 45.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,7733431]. 24.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,7757230]. 33
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,7775045]. 23.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,7798928]. 24.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,7822711]. 34
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,7840846]. -36.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,7864909]. 18.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,7888756]. 35
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,7906763]. -13.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,7930714]. 14.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,7954753]. 36
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,7972584]. 1.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,7996384]. 15.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,8020183]. 37
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,8038068]. 45.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,8061983]. 14.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,8085782]. 38
+
+CoRTOS:LOG: INFO: (0,0): main.c:567, fe_centroiding() [0,8103597]. 23.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:568, fe_centroiding() [0,8127736]. 14.500000
+
+CoRTOS:LOG: INFO: (0,0): main.c:569, fe_centroiding() [0,8151599]. 39
+
+CoRTOS:LOG: INFO: (0,0): main.c:637, main() [0,8169323]. Number of Stars: 40
+</pre>
