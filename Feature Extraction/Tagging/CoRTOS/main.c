@@ -63,13 +63,13 @@ unsigned short int i_final_tag_change  = 0;
 unsigned short int i_format_out = 0;
 
 //variable to count number of stars in fe_merge_tag
-unsigned short int num_stars_mergetag=0;
+unsigned short int num_stars_mergetag = 0;
 
 //variable to count number of singly tagged stars
-unsigned short int num_single_tag_stars=0;
+unsigned short int num_single_tag_stars = 0;
 
 //variable to count number of zero rows in arr_sums
-unsigned short int num_zero_rows=0;
+unsigned short int num_zero_rows = 0;
 
 //array of variables to sum the values of different tagged regions of the same star ("summation variables")
 float arr_tot_sum_x[NUM_FINAL_TAGS];
@@ -86,7 +86,7 @@ unsigned short int i_remove_zero_rows;
 
 unsigned short int i_overwrite_rows;
 
-unsigned short int img_num_global=1;
+unsigned short int img_num_global = 1;
 
 //initialising placeholder variables for fe_tag()
 float arr_sum_x[NUM_REGIONS], arr_sum_y[NUM_REGIONS], arr_weights[NUM_REGIONS];
@@ -99,9 +99,9 @@ unsigned short int num_stars_centroiding;
 unsigned short int i_set_star_id;
 
 // Number of test cases
-unsigned short int n=15;
+unsigned short int n = 15;
 
-unsigned short int num_stars ;
+unsigned short int num_stars = 0;
 
 
 int max(int num1, int num2)
@@ -544,10 +544,35 @@ unsigned short int fe_centroiding(unsigned short int arr_img[BREADTH][LENGTH])
 
 void main()
 {
-        // Master function call
-        num_stars = fe_centroiding(arr_image);
+    // Initialising scalar variables to prevent incremental errors over multiple executions on hardware
+    tag = 0;
+    final_tag = 0;
+    larger_final_tag = 0;
+    smaller_final_tag = 0;
+    num_iterations = 0;
+    num_skip = 0;
 
-        CORTOS_INFO("Number of Stars: %d\n",num_stars);
+    num_stars_mergetag = 0;
+    num_single_tag_stars = 0;
+    num_zero_rows = 0;
 
-        cortos_exit(0);
+    i_centroids_single = 0;
+    i_centroids_multi = 0;
+    i_remove_zero_rows = 0;
+    i_overwrite_rows = 0;
+
+    num_tags = 0;
+    num_final_tags = 1;
+    num_stars_centroiding = 0;
+    i_set_star_id = 0;
+    num_stars = 0;
+
+    //-------------------------------------------------------------------------------------
+
+    // Master function call
+    num_stars = fe_centroiding(arr_image);
+
+    CORTOS_INFO("Number of Stars: %d\n",num_stars);
+
+    cortos_exit(0);
 }
