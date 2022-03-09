@@ -70,7 +70,7 @@ void regionGrowth(short arr_in_img[BREADTH][LENGTH], short arr_out_img[BREADTH +
 	
 	for(i = 0; i < MAX_STARS; i++)
 	{
-		fprintf(out,"%d, %d, %d, %d\n",x_sum[i],y_sum[i],pixel_sum[i],num_pixels[i]);
+		fprintf(out,"%d, %d, %d, %d\n",x_sum[i],y_sum[i],pixel_sum[i],num_pixels);
 		
 	}
 	fclose(out);
