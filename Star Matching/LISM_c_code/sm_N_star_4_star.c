@@ -9,14 +9,15 @@
 #include "bubblesort.h"
 #include "sm_constants.h"
 
-int sm_K_vec_arr[188807][3]; // declared here because array of such sizes can't be declared inside main() in C
+int sm_K_vec_arr[224792][3];
+// int sm_K_vec_arr[188807][3]; // declared here because array of such sizes can't be declared inside main() in C
 
 int main()
 {
     // inputs/constants---------------------------------------
 
     int N_i, N_uis, N_max, N_th, N_gc, N_kvec_pairs, N_circ = 0, N_is = 0;
-    double epsilon, q, m, foc, y_max, y_min, delta;
+    long double epsilon, q, m, foc, y_max, y_min, delta;
 
     // -------------------------------------------------------
     // Value of hyperparameters
@@ -26,10 +27,14 @@ int main()
     delta = DELTA;
     
     // Some other constants
-    y_max = 0.999999999992621;
-    y_min = 0.973988966620749;
-    N_kvec_pairs = 188807;
-    N_gc = 5060;
+    // y_max = 0.999999999992621;
+    y_max = 0.9999999999926209;
+    y_min = 0.990026120824787;
+    // y_min = 0.973988966620749;
+    N_kvec_pairs = 224792;
+    // N_kvec_pairs = 188807;
+    N_gc = 8876;
+    // N_gc = 5060;
 
     // Inputs - will come from FE block. 
     printf("Enter the number of stars in input test file :- ");
@@ -43,7 +48,8 @@ int main()
     //--------------------------------------------------------
     // taking input of the K vector catalogue
     FILE *file;
-    file = fopen("kvec.txt", "r");
+    file = fopen("sm_Reference_Star_Catalogue_4SM_6.5.txt", "r");
+    // file = fopen("kvec.txt", "r");
     for (int i = 0; i < N_kvec_pairs; i++)
     {
         for (int j = 0; j < 3; j++)
@@ -56,30 +62,34 @@ int main()
     fclose(file);
 
     // taking input of test file
-    double UIS[N_i][3];     // 2D array for storing (x,y) coordinates and star IDs of unidentified stars
+    long double UIS[N_i][3];     // 2D array for storing (x,y) coordinates and star IDs of unidentified stars
     FILE *file2;
-    file2 = fopen("sample_input.txt", "r"); // type the name of your input test file here
+    file2 = fopen("sm_test_case_dummy2.txt", "r");
+    // file2 = fopen("sm_test_case_2.txt", "r"); // type the name of your input test file here
+    // file2 = fopen("sample_input.txt", "r");
     for (int i = 0; i < N_i; i++)
     {
         for (int j = 0; j < 3; j++)
         {
-            double temp;
-            fscanf(file2, "%lf", &temp);
+            long double temp;
+            fscanf(file2, "%Lf", &temp);
             UIS[i][j] = temp;
         }
     }
     fclose(file2);
 
     // taking input of Guide star catalogue
-    double sm_GC[5060][4];
+    double sm_GC[8876][4];
+    // double sm_GC[5060][4];
     FILE *file3;
-    file3 = fopen("gsc.txt", "r"); 
+    file3 = fopen("sm_Guide_Star_Catalogue_6.5.txt", "r");
+    // file3 = fopen("gsc.txt", "r"); 
     for (int i = 0; i < N_gc; i++)
     {
         for (int j = 0; j < 4; j++)
         {
-            double temp;
-            fscanf(file3, "%lf", &temp);
+            long double temp;
+            fscanf(file3, "%Lf", &temp);
             sm_GC[i][j] = temp;
         }
     }
@@ -90,17 +100,39 @@ int main()
 
     m = (y_max - y_min + 2 * epsilon) / (N_kvec_pairs - 1);
     q = y_min - m - epsilon;
+
+    // printf("M is %0.15Lf\n", m);
+    // printf("Q is %0.15Lf\n", q);
     
     // -------------------------------------------------------------------------------------------------------
     int sm_IS[N_gc][2]; // array for storing the matched stars
     memset(sm_IS, -1, N_gc * sizeof(sm_IS[0]));
 
     // sorting the UIS table according to Euclidean distance
-    bubbleSort(UIS, N_i);
+    // bubbleSort(UIS, N_i);
 
-    double sm_3D_vecs[N_i][4]; // this stores the 3D vectors generated from the UIS table
+    // for (int i = 0; i < N_i; i++)
+    // {
+    //     for (int j = 0; j < 3; j++)
+    //     {
+    //         printf("%Lf", UIS[i][j]);
+    //     }
+    //     printf("\n");
+    // }
+
+
+    long double sm_3D_vecs[N_i][4]; // this stores the 3D vectors generated from the UIS table
     // generating 3D vectors from the sorted UIS table
     sm_gnrt_3D_vec(sm_3D_vecs, UIS, foc, N_i);
+
+    // for (int i = 0; i < N_i; i++)
+    // {
+    //     for (int j = 0; j < 4; j++)
+    //     {
+    //         printf("%Lf ", sm_3D_vecs[i][j]);
+    //     }
+    //     printf("\n");
+    // }
 
     // main algo starts here
     int circ_flag = 1; // flag which stores the number of times the sm_3D_vecs table has been circulated
@@ -126,6 +158,9 @@ int main()
             sm_4_star(four_stars, sm_3D_vecs, sm_IS, sm_K_vec_arr, &N_match, N_i, N_gc, delta, q, m);
             N_uis -= N_match;
             N_is += N_match;
+
+            // printf("%d\n", N_match); // DEBUG line
+
             if (N_match == 0 && N_circ <= 2 * N_i) // if no stars are matched then we must circulate the sm_3D_vecs table
             {
                 sm_4_star_circulate(sm_3D_vecs, &N_circ, N_i);

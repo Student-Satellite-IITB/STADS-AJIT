@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-void sm_4_star_circulate(double sm_3D_vecs[][4], int *N_circ, int N_i){
+void sm_4_star_circulate(long double sm_3D_vecs[][4], int *N_circ, int N_i){
     int last = 0;
     for (int j = N_i - 1; j >= 0; j--)
     {

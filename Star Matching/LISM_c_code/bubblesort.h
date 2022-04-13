@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <math.h>
 
-void bubbleSort(double arr[][3], int n)
+void bubbleSort(long double arr[][3], int n)
 {
     int i, j;
-    double temp[3];
+    long double temp[3];
     for (i = 0; i < n; i++)
     {
         for (j = 0; j < n - i - 1; j++)
