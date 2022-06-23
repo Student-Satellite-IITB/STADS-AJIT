@@ -4,6 +4,7 @@
 #include <math.h>
 
 void sm_4_star_circulate(long double sm_3D_vecs[][4], int *N_circ, int N_i){
+    uint64_t t1 = cortos_get_clock_time();
     int j, k, v; //Declaring counter variables
     int last = 0;
     //for (int j = N_i - 1; j >= 0; j--)
@@ -32,7 +33,10 @@ void sm_4_star_circulate(long double sm_3D_vecs[][4], int *N_circ, int N_i){
         }
     }
     *N_circ++;
-
+    uint64_t t2 = cortos_get_clock_time();
+    uint32_t t11 = t1&(0xffffffff);
+    uint32_t t12 = t2&(0xffffffff);
+    cortos_printf("\ntime required for circulation is %u \n", t12-t11);
 
 
 }

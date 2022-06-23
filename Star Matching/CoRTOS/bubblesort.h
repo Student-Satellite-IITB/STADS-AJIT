@@ -5,6 +5,7 @@
 
 void bubbleSort(long double arr[][3], int n)
 {
+    uint64_t t1 = cortos_get_clock_time();
     int i, j;
     long double temp[3];
     for (i = 0; i < n; i++)
@@ -26,4 +27,9 @@ void bubbleSort(long double arr[][3], int n)
             }
         }
     }
+    uint64_t t2 = cortos_get_clock_time();
+    uint32_t t11 = t1&(0xffffffff);
+    uint32_t t12 = t2&(0xffffffff);
+    cortos_printf("\ntime required for bubblesort is %u \n", t12-t11);
+
 }

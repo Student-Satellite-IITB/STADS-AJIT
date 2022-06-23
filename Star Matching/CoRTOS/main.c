@@ -13,18 +13,28 @@
 #include "sm_K_vec_arr.h"
 #include "sm_GC.h"
 
-#include "UIS.h"
+#include "UIS_0.h"
+#include "UIS_1.h"
+#include "UIS_2.h"
+#include "UIS_3.h"
+#include "UIS_4.h"
+#include "UIS_5.h"
+#include "UIS_6.h"
+#include "UIS_7.h"
+#include "UIS_8.h"
+#include "UIS_9.h"
 
 //int sm_K_vec_arr[224792][3]; Will be declared in header file
 // int sm_K_vec_arr[188807][3]; // declared here because array of such sizes can't be declared inside main() in C
 
-int main()
+void sm(long double UIS[][3], int N_i)
 {
     uint64_t t1 = cortos_get_clock_time();
     int i, countt, j, k; //Declaring counter variables
     // inputs/constants---------------------------------------
 
-    int N_i, N_uis, N_max, N_th, N_gc, N_kvec_pairs, N_circ = 0, N_is = 0;
+    //int N_i, N_uis, N_max, N_th, N_gc, N_kvec_pairs, N_circ = 0, N_is = 0;
+    int N_uis, N_max, N_th, N_gc, N_kvec_pairs, N_circ = 0, N_is = 0;
     long double epsilon, q, m, foc, y_max, y_min, delta;
 
     // -------------------------------------------------------
@@ -148,9 +158,10 @@ int main()
     // main algo starts here
     int circ_flag = 1; // flag which stores the number of times the sm_3D_vecs table has been circulated
     //for (int i = 1; i <= N_max; i++) // N_max is the maximum number of times we want to run the code
+    uint64_t t2 = cortos_get_clock_time(); //Constant declarations
     for (i = 1; i <= N_max; i++)
     {
-
+       
         if (N_uis >= 4 && N_is < N_th) // N_uis >= 4 for running 4 star algo & N_is(identified stars) < N_th(threshold number of matched stars)
         {
             int N_match = 0; // variable for storing the number of stars matched in a particular iteration
@@ -190,26 +201,61 @@ int main()
             break;
         }
     }
-    CORTOS_INFO(" \nTotal matched stars :- %d\n\n", N_is);
-    CORTOS_INFO("  Input_ID  Desired_star_ID  X             Y             Z\n");
-    CORTOS_INFO("-------------------------------------------------------------------\n");
+    uint64_t t3 = cortos_get_clock_time();
+    cortos_printf(" \nTotal matched stars :- %d\n\n", N_is);
+    cortos_printf("  Input_ID  Desired_star_ID  X             Y             Z\n");
+    cortos_printf("-------------------------------------------------------------------\n");
     //for (int i = 0; i < N_gc; i++)
-    for (i = 0; i < N_gc; i++)
+    //for (i = 0; i < N_gc; i++)
+    for (i = 0; i < N_i; i++)
     {
         if (sm_IS[i][0]!=-1)
         {
-            CORTOS_INFO("%d     %d      %d         ", i, sm_IS[i][0], sm_IS[i][1]);
+            cortos_printf("%d     %d      %d         ", i, sm_IS[i][0], sm_IS[i][1]);
             //for (int j = 1; j < 4; j++)
             for (j = 1; j < 4; j++)
             {
-                CORTOS_INFO("%lf    ", sm_GC[sm_IS[i][1]][j]);
+                cortos_printf("%lf    ", sm_GC[sm_IS[i][1]][j]);
             }
-            CORTOS_INFO("\n");
+            cortos_printf("\n");
         }
     }
-    uint64_t t2 = cortos_get_clock_time();
     uint32_t t11 = t1&(0xffffffff);
     uint32_t t12 = t2&(0xffffffff);
-    cortos_printf("\ntime required is %u", t12-t11);
+    uint32_t t23 = t3&(0xffffffff);
+    cortos_printf("\ntime required for constant declaration is %u \n", t12-t11);
+    cortos_printf("\ntime required is %u \n", t23-t12);
+}
+int main(){
+    cortos_printf("TEST CASE 1:-\n");
+    cortos_printf("-------------------------------------------------------------------\n");
+    sm(UIS_0, CORTOS_N_i_0);
+    cortos_printf("TEST CASE 2:-\n");
+    cortos_printf("-------------------------------------------------------------------\n");
+    sm(UIS_1, CORTOS_N_i_1);
+    cortos_printf("TEST CASE 3:-\n");
+    cortos_printf("-------------------------------------------------------------------\n");
+    sm(UIS_2, CORTOS_N_i_2);
+    cortos_printf("TEST CASE 4:-\n");
+    cortos_printf("-------------------------------------------------------------------\n");
+    sm(UIS_3, CORTOS_N_i_3);
+    cortos_printf("TEST CASE 5:-\n");
+    cortos_printf("-------------------------------------------------------------------\n");
+    sm(UIS_4, CORTOS_N_i_4);
+    cortos_printf("TEST CASE 6:-\n");
+    cortos_printf("-------------------------------------------------------------------\n");
+    sm(UIS_5, CORTOS_N_i_5);
+    cortos_printf("TEST CASE 7:-\n");
+    cortos_printf("-------------------------------------------------------------------\n");
+    sm(UIS_6, CORTOS_N_i_6);
+    cortos_printf("TEST CASE 8:-\n");
+    cortos_printf("-------------------------------------------------------------------\n");
+    sm(UIS_7, CORTOS_N_i_7);
+    cortos_printf("TEST CASE 9:-\n");
+    cortos_printf("-------------------------------------------------------------------\n");
+    sm(UIS_8, CORTOS_N_i_8);
+    cortos_printf("TEST CASE 10:-\n");
+    cortos_printf("-------------------------------------------------------------------\n");
+    sm(UIS_9, CORTOS_N_i_9);
     cortos_exit(0);
 }

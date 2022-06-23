@@ -18,18 +18,25 @@ int already_matched(int sm_IS[][2],int indx,int N_gc){
 
 void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[][2], int sm_K_vec_arr[][3], int *N_match, int N_i, int N_gc, double delta, double q, double m)
 {
+    uint64_t t1 = cortos_get_clock_time();
     int i, j, k;
     double SIM[N_gc][6]; // SIM implies star identification matrix which is basically the table in which we set those values as 1 
                          // which are corresponding to the star ids obtained from the kvec catalogue
     //for (int i = 0; i < N_gc; i++)
-    for (i = 0; i < N_gc; i++)
+    /*for (i = 0; i < N_gc; i++)
     {
         //for (int j = 0; j < 6; j++)
         for (j = 0; j < 6; j++)
         {
             SIM[i][j] = 0;
         }
-    }
+    }*/
+    memset(SIM, 0, N_gc * 6 *  sizeof(SIM[0][0]));
+     uint64_t t3 = cortos_get_clock_time();
+    uint32_t txx = t1&(0xffffffff);
+    uint32_t t13 = t3&(0xffffffff);
+    cortos_printf("\ntime required for SIM set to 0 is %u \n", t13-txx);
+
     
     long double p[6]; // this stores the angular distances between each of the 4 pairs in the four_stars array
     int ct = 0;
@@ -46,7 +53,7 @@ void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[]
             ct++;
         }    
     }
-
+   
     // for (int i = 0; i < 6; i++)
     // {
     // 	printf("%Lf\n", p[i]);
@@ -74,7 +81,6 @@ void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[]
         // printf("k_bot : %d, k_top : %d\n", k_bot, k_top);
         // deletee++;
         // printf("%d\n", deletee);
-
         if (k_top <= 0 || k_bot >= 224792)
         // if (k_top < 0 || k_bot >= 188807)
         {
@@ -112,11 +118,16 @@ void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[]
 	            }
             }
         }
+        uint64_t t4 = cortos_get_clock_time();
+        uint32_t t33 = t3&(0xffffffff);
+        uint32_t t34 = t4&(0xffffffff);
+        cortos_printf("\ntime required for accessing reference catalogue is %u \n", t34-t33);
     }
 
     //SIM generated, now SMM gets generated
 
     //for (int j = 0; j < 4; j++)
+    uint64_t t5 = cortos_get_clock_time();
     for (j = 0; j < 4; j++)
     {
         int matched_rows = 0; // this stores the number of rows matched
@@ -137,7 +148,8 @@ void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[]
         }
         if (matched_rows == 1)
         {
-            int flag = already_matched(sm_IS, (int)four_stars[j][0], N_gc);
+            int flag = already_matched(sm_IS, (int)four_stars[j][0], N_i);
+            //int flag = already_matched(sm_IS, (int)four_stars[j][0], N_gc);
             // int flag = 0;// DELETE ASAP
             if (flag == 0) // checking if that star has earlier been matched
             {
@@ -153,7 +165,8 @@ void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[]
                     }
                 }
                 //for (int k = 0; k < N_gc; k++)
-                for (k = 0; k < N_gc; k++)
+                //for (k = 0; k < N_gc; k++)
+                for (k = 0; k < N_i; k++)
                 {
                     if (sm_IS[k][0]==-1)
                     {
@@ -165,4 +178,12 @@ void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[]
             }
         }
     }
+    uint64_t t6 = cortos_get_clock_time();
+    uint32_t t55 = t5&(0xffffffff);
+    uint32_t t56 = t6&(0xffffffff);
+    cortos_printf("\ntime required for matching checks is %u \n", t56-t55);
+    uint64_t t2 = cortos_get_clock_time();
+    uint32_t t11 = t1&(0xffffffff);
+    uint32_t t12 = t2&(0xffffffff);
+    cortos_printf("\ntime required for 4-star matching is %u \n", t12-t11);
 }
