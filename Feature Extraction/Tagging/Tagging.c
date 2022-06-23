@@ -1,5 +1,4 @@
-//#include<stdio.h>
-#include "cortos.h"
+#include<stdio.h>
 #include "image_1_padded_tagging.h"
 // Error in code: STAR_MIN_PIXEL uses > instead of >=
 
@@ -13,7 +12,6 @@
 #define NUM_TAGS_PER_REGION 21
 #define PIXEL_WIDTH 0.0048
 #define NUM_TOT_STARS 100
-//change01
 
 
 //initialising the output array for main()
@@ -35,20 +33,6 @@ unsigned short int arr_final_tags[NUM_FINAL_TAGS][NUM_TAGS_PER_REGION];
 //an array defined to contain the position of centroids of a star in fe_merge_tag() in fe_centroiding()
 //(k, 1)=pos_x  (k, 2)=pos_y
 float arr_star_coordinates[NUM_TOT_STARS][2];
-// initialising an array to accept Sensor Model Input in main()
-//unsigned short int arr_image[BREADTH][LENGTH] = 
-
-/*{0,0,1,0,0,0,0,0,0,0,
-0,1,1,1,0,0,0,0,0,0,
-1,1,1,1,1,0,0,0,0,0,
-0,1,1,1,0,0,0,0,0,0,
-0,0,1,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,1,1,0,0,
-0,0,0,0,0,0,1,1,0,0,
-0,0,0,0,0,0,0,0,0,0};
-*/
 
 unsigned short int rows = BREADTH;
 unsigned short int columns = LENGTH;
@@ -136,29 +120,7 @@ int min(int num1, int num2)
     {
 //function to output arr_sums, tag numbers and flag numbers
 
-/*
-Input consisting of
-1. An array of sums of coordinates along x and y
-2. Array pointers for arr_sums
-3. Reference variables to tag_num and final_tag_num
-*/
 
-//arr_out_img, arr_sums and arr_final_tags have been declared in the global scope to prevent stack overflow
-/*        for (j_set_row = 0; j_set_row < columns + 2; j_set_row++)
-            arr_out_img[0][j_set_row][0] = 0;
-        
-        for (i_set_col = 1; i_set_col < rows + 1; i_set_col++)
-        {
-            arr_out_img[i_set_col][0][0] = 0;
-            arr_out_img[i_set_col][columns + 1][0] = 0;
-        }
-        
-        for (i_copy_img = 1; i_copy_img < rows + 1; i_copy_img++) {
-        
-         for (j_copy_img = 1; j_copy_img < columns + 1; j_copy_img++)
-            arr_out_img[i_copy_img][j_copy_img][0] = arr_in_img[i_copy_img - 1][j_copy_img - 1];
-    }   
-*/    
     for (i_set_zeros = 0; i_set_zeros < NUM_REGIONS; i_set_zeros++){
         for (j_set_zeros = 0; j_set_zeros < 5; j_set_zeros++)
             arr_sums[i_set_zeros][j_set_zeros] = 0;
@@ -471,8 +433,8 @@ Input consisting of
             //incrementing number of stars and single tagged stars by 1
             num_single_tag_stars = num_single_tag_stars + 1;
             num_stars_mergetag = num_stars_mergetag + 1;
-            //printf("Added 1 to num_stars \n");
-            CORTOS_DEBUG("Added 1 to num_stars");
+            printf("Added 1 to num_stars \n");
+            //CORTOS_DEBUG("Added 1 to num_stars");
             //printf("Added 1 to NUM_STARS");
             //updating values of centroid
             arr_star_coordinates[num_final_tags + num_single_tag_stars][0] = (arr_sum_x[i_centroids_single]/arr_weights[i_centroids_single] - 1) - (LENGTH/2 + 0.5);
@@ -500,8 +462,8 @@ Input consisting of
             arr_star_coordinates[i_centroids_multi - num_zero_rows][1] = -1*((arr_tot_sum_y[i_centroids_multi]/arr_tot_weights[i_centroids_multi] - 1) - (BREADTH/2 + 0.5));
             //incrementing number of stars by 1
             num_stars_mergetag = num_stars_mergetag + 1;
-            //printf("Added 1 to num_stars \n");
-            CORTOS_DEBUG("Added 1 to num_stars");
+            printf("Added 1 to num_stars \n");
+            //CORTOS_DEBUG("Added 1 to num_stars");
             //printf("Added 1 to NUM_STARS");
         }
         //if number of pixels in region is out of range or with zero weight
@@ -566,36 +528,13 @@ Output consisting of
             //printf("\n");
             //printf("%.6f",arr_centroids[i_set_star_id][0]);
             //printf("\n");
-	    CORTOS_INFO("%.6f\n",arr_centroids[i_set_star_id][1]);
-            //printf("%.6f\n",arr_centroids[i_set_star_id][1]);
-            CORTOS_INFO("%.6f\n",arr_centroids[i_set_star_id][2]);
-            //printf("%.6f\n",arr_centroids[i_set_star_id][2]);
-            CORTOS_INFO("%d\n",i_set_star_id);
-            //printf("%d\n",i_set_star_id);
+	        //CORTOS_INFO("%.6f\n",arr_centroids[i_set_star_id][1]);
+            printf("%.6f\n",arr_centroids[i_set_star_id][1]);
+            //CORTOS_INFO("%.6f\n",arr_centroids[i_set_star_id][2]);
+            printf("%.6f\n",arr_centroids[i_set_star_id][2]);
+            //CORTOS_INFO("%d\n",i_set_star_id);
+            printf("%d\n",i_set_star_id);
         }
-        
-/*
-//output to external file
-//courtesy SZ
-        char filename[25];
-        sprintf(filename, "fe_tag_mege_centroids_%i.csv", img_num_global);
-        img_num_global++;
-        FILE *ofile;
-        ofile=fopen(filename,"w");
-	//cen<<"ID, x_cen, y_cen\n";
-        unsigned short int k = 0;
-        for(k = 0; k < num_stars; k++)
-          
-
-            fprintf(ofile,"%2.0f , %.13f , %.13f\n",arr_centroids[k][0],arr_centroids[k][1]*PIXEL_WIDTH,arr_centroids[k][2]*PIXEL_WIDTH);
-        
-
-        fclose(ofile);
-*/
-/* Output consisting of
-1. A file "filename" with the centroids of stars detected in the image
-2. A scalar containing the number of stars
-*/
         return (num_stars_centroiding);
 
     }
@@ -603,48 +542,17 @@ Output consisting of
     void main()
     {
              
-            CORTOS_INFO("Start");
-            //printf("START"); 
-//arr_image and arr_centroids have been declared under the global scope to prevent stack overflow
+            //CORTOS_INFO("Start");
+            printf("START"); 
+            //arr_image and arr_centroids have been declared under the global scope to prevent stack overflow
 
-
-/*
-//courtesy SZ
-        unsigned short img_num = 1;
-        for(img_num = 1; img_num <= n; img_num++)
-        {
-    //input from external file
-          
-
-            printf("Image:  %d\n",img_num );
-
-            char filename[25];
-            sprintf(filename, "image_%i.txt", img_num);
-
-            FILE *file=fopen(filename,"r");
-            unsigned short int i_file_in = 0;
-            unsigned short int j_file_in = 0;
-            for(i_file_in = 0; i_file_in < BREADTH; i_file_in++)
-                for(j_file_in = 0; j_file_in < LENGTH; j_file_in++)
-                    fscanf(file,"%d", &arr_image[i_file_in][j_file_in]);
-           // file >> arr_image[i_file_in][j_file_in];
-
-    //Feature Extraction start
-                unsigned short int num_stars = fe_centroiding(arr_image);
-    //Feature Extraction end
-                printf("Number of Stars: %d\n",num_stars);
-    //cout<<"Number of Stars: "<<num_stars<<"\tTime Taken: "<<duration.count()<<" ms"<<endl<<endl;
-                fclose(file);
-            }
-*/
-    //Feature Extraction start
-                num_stars = fe_centroiding(arr_image);
-    //Feature Extraction end
-                //printf("Number of Stars: %d\n", num_stars);
-                CORTOS_INFO("Number of Stars: %d\n",num_stars);
-                //printf("Number of Stars: %d\n",num_stars);
-    //cout<<"Number of Stars: "<<num_stars<<"\tTime Taken: "<<duration.count()<<" ms"<<endl<<endl;
-
+            //Feature Extraction start
+            num_stars = fe_centroiding(arr_image);
+            //Feature Extraction end
+            //printf("Number of Stars: %d\n", num_stars);
+            //CORTOS_INFO("Number of Stars: %d\n",num_stars);
+            printf("Number of Stars: %d\n",num_stars);
+            //cout<<"Number of Stars: "<<num_stars<<"\tTime Taken: "<<duration.count()<<" ms"<<endl<<endl;
             //return 1;
-            cortos_exit(0);
+            //cortos_exit(0);
         }
