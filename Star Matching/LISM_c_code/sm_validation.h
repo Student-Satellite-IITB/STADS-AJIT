@@ -6,6 +6,7 @@ void sm_validate(long double sm_3D_vecs[][4], int sm_IS[][2], double sm_GC[][4],
     int i, j;
     int N_new = *N_is;
     int votes[N_i];
+    memset(votes, 0, N_i * sizeof(votes[0]));
     for (i = 0; i < N_i; i++){
         if (sm_IS[i][0] == -1)
             continue;
@@ -21,6 +22,8 @@ void sm_validate(long double sm_3D_vecs[][4], int sm_IS[][2], double sm_GC[][4],
                     votes[i]++;
                     votes[j]++;
                 }
+                if((votes[i] < 0) || (votes[j] < 0))
+                    printf("Idx i: %d, j: %d\n", i, j);
             }
         }
     }
