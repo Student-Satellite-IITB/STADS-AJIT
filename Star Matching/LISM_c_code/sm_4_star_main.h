@@ -17,13 +17,14 @@ void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[]
 {
     double SIM[N_gc][6]; // SIM implies star identification matrix which is basically the table in which we set those values as 1 
                          // which are corresponding to the star ids obtained from the kvec catalogue
-    for (int i = 0; i < N_gc; i++)
+    /*for (int i = 0; i < N_gc; i++)
     {
         for (int j = 0; j < 6; j++)
         {
             SIM[i][j] = 0;
         }
-    }
+    }*/
+    memset(SIM, 0, N_gc *6 *sizeof(SIM[0][0]));
     
     long double p[6]; // this stores the angular distances between each of the 4 pairs in the four_stars array
     int ct = 0;
@@ -125,7 +126,7 @@ void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[]
         }
         if (matched_rows == 1)
         {
-            int flag = already_matched(sm_IS, (int)four_stars[j][0], N_gc);
+            int flag = already_matched(sm_IS, (int)four_stars[j][0], N_i);
             // int flag = 0;// DELETE ASAP
             if (flag == 0) // checking if that star has earlier been matched
             {
@@ -139,7 +140,7 @@ void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[]
                         break;
                     }
                 }
-                for (int k = 0; k < N_gc; k++)
+                for (int k = 0; k < N_i; k++)
                 {
                     if (sm_IS[k][0]==-1)
                     {

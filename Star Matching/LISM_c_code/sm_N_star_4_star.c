@@ -8,15 +8,30 @@
 #include "sm_4_star_circulate.h"
 #include "bubblesort.h"
 #include "sm_constants.h"
+#include "sm_validation.h"
+
+#include "UIS_0.h"
+#include "UIS_1.h"
+#include "UIS_2.h"
+#include "UIS_3.h"
+#include "UIS_4.h"
+#include "UIS_5.h"
+#include "UIS_6.h"
+#include "UIS_7.h"
+#include "UIS_8.h"
+#include "UIS_9.h"
+
 
 int sm_K_vec_arr[224792][3];
+double sm_GC[8876][4];
 // int sm_K_vec_arr[188807][3]; // declared here because array of such sizes can't be declared inside main() in C
 
-int main()
+void sm(long double UIS[][3], int N_i)
 {
     // inputs/constants---------------------------------------
 
-    int N_i, N_uis, N_max, N_th, N_gc, N_kvec_pairs, N_circ = 0, N_is = 0;
+    //int N_i, N_uis, N_max, N_th, N_gc, N_kvec_pairs, N_circ = 0, N_is = 0;
+    int N_uis, N_max, N_th, N_gc, N_kvec_pairs, N_circ = 0, N_is = 0; 
     long double epsilon, q, m, foc, y_max, y_min, delta;
 
     // -------------------------------------------------------
@@ -37,14 +52,21 @@ int main()
     // N_gc = 5060;
 
     // Inputs - will come from FE block. 
-    printf("Enter the number of stars in input test file :- ");
-    scanf("%d", &N_i);
+    //printf("Enter the number of stars in input test file :- ");
+    //scanf("%d", &N_i);
+    //N_i = CORTOS_N_i;
     N_uis = N_i;
-    printf("Enter the maximum number of iterations (< no. of input stars) you want the algorithm to run :- ");
-    scanf("%d", &N_max);
-    printf("Enter the maximum number of matched stars you want :- ");
-    scanf("%d", &N_th);
+    //printf("Enter the maximum number of iterations (< no. of input stars) you want the algorithm to run :- ");
+    //scanf("%d", &N_max);
+    N_max = N_i -1;
+   // printf("Enter the maximum number of matched stars you want :- ");
+    //scanf("%d", &N_th);
+    N_th = 8;
 
+    //Constants for validation
+    double tol = 5;
+    double p_1 = 35;
+    double p_2 = 80;
     //--------------------------------------------------------
     // taking input of the K vector catalogue
     FILE *file;
@@ -62,10 +84,10 @@ int main()
     fclose(file);
 
     // taking input of test file
-    long double UIS[N_i][3];     // 2D array for storing (x,y) coordinates and star IDs of unidentified stars
+    /*long double UIS[N_i][3];     // 2D array for storing (x,y) coordinates and star IDs of unidentified stars
     FILE *file2;
-    file2 = fopen("sm_test_case_dummy2.txt", "r");
-    // file2 = fopen("sm_test_case_2.txt", "r"); // type the name of your input test file here
+    //file2 = fopen("sm_test_case_dummy2.txt", "r");
+     file2 = fopen("sm_test_case_1.txt", "r"); // type the name of your input test file here
     // file2 = fopen("sample_input.txt", "r");
     for (int i = 0; i < N_i; i++)
     {
@@ -76,10 +98,9 @@ int main()
             UIS[i][j] = temp;
         }
     }
-    fclose(file2);
+    fclose(file2);*/
 
     // taking input of Guide star catalogue
-    double sm_GC[8876][4];
     // double sm_GC[5060][4];
     FILE *file3;
     file3 = fopen("sm_Guide_Star_Catalogue_6.5.txt", "r");
@@ -176,6 +197,7 @@ int main()
             break;
         }
     }
+    sm_validate(sm_3D_vecs, sm_IS, sm_GC, &N_is, N_i, N_gc, tol, p_1, p_2);
     printf(" \nTotal matched stars :- %d\n\n", N_is);
     printf("  Input_ID  Desired_star_ID  X             Y             Z\n");
     printf("-------------------------------------------------------------------\n");
@@ -191,4 +213,17 @@ int main()
             printf("\n");
         }
     }
+}
+
+int main(){
+   sm(UIS_0, CORTOS_N_i_0);
+   sm(UIS_1, CORTOS_N_i_1);
+   sm(UIS_2, CORTOS_N_i_2);
+   sm(UIS_3, CORTOS_N_i_3);
+   sm(UIS_4, CORTOS_N_i_4);
+   sm(UIS_5, CORTOS_N_i_5);
+   sm(UIS_6, CORTOS_N_i_6);
+   sm(UIS_7, CORTOS_N_i_7);
+   sm(UIS_8, CORTOS_N_i_8);
+   sm(UIS_9, CORTOS_N_i_9);
 }
