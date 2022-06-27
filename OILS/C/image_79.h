@@ -1,4 +1,3 @@
-// #include "cortos.h"
 
 #define LENGTH 808
 #define BREADTH 608
