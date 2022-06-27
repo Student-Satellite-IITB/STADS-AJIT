@@ -5,28 +5,28 @@
 #include <string.h>
 
 // User defined header files
-//  #include "image_1.h"
+ #include "image_1.h"
  #include "image_2.h" 
-//  #include "image_3.h" 
-//  #include "image_4.h" 
-//  #include "image_5.h" 
-//  #include "image_6.h" 
-//  #include "image_7.h" 
-//  #include "image_8.h" 
-//  #include "image_9.h" 
-//  #include "image_10.h"
-//  #include "image_11.h"
-//  #include "image_12.h"
-//  #include "image_13.h"
-//  #include "image_14.h"
-//  #include "image_15.h"
-//  #include "image_16.h"
-//  #include "image_17.h"
-//  #include "image_18.h"
-//  #include "image_19.h"
-//  #include "image_20.h"
-//  #include "image_21.h"
-//  #include "image_22.h"
+ #include "image_3.h" 
+ #include "image_4.h" 
+ #include "image_5.h" 
+ #include "image_6.h" 
+ #include "image_7.h" 
+ #include "image_8.h" 
+ #include "image_9.h" 
+ #include "image_10.h"
+ #include "image_11.h"
+ #include "image_12.h"
+ #include "image_13.h"
+ #include "image_14.h"
+ #include "image_15.h"
+ #include "image_16.h"
+ #include "image_17.h"
+ #include "image_18.h"
+ #include "image_19.h"
+ #include "image_20.h"
+ #include "image_21.h"
+ #include "image_22.h"
 //  #include "image_23.h"
 //  #include "image_24.h"
 //  #include "image_25.h"
@@ -116,9 +116,9 @@ int sm_K_vec_arr[224792][3];
 int main()
 {
 
-// printf("SIS_iter_1\n");
-// OILS(arr_out_img_1);
-// printf("\n\n\n");
+printf("SIS_iter_1\n");
+OILS(arr_out_img_1);
+printf("\n\n\n");
 
 
 printf("SIS_iter_2\n");
@@ -126,104 +126,104 @@ OILS(arr_out_img_2);
 printf("\n\n\n");
 
 
-// printf("SIS_iter_3\n");
-// OILS(arr_out_img_3);
-// printf("\n\n\n");
+printf("SIS_iter_3\n");
+OILS(arr_out_img_3);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_4\n");
-// OILS(arr_out_img_4);
-// printf("\n\n\n");
+printf("SIS_iter_4\n");
+OILS(arr_out_img_4);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_5\n");
-// OILS(arr_out_img_5);
-// printf("\n\n\n");
+printf("SIS_iter_5\n");
+OILS(arr_out_img_5);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_6\n");
-// OILS(arr_out_img_6);
-// printf("\n\n\n");
+printf("SIS_iter_6\n");
+OILS(arr_out_img_6);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_7\n");
-// OILS(arr_out_img_7);
-// printf("\n\n\n");
+printf("SIS_iter_7\n");
+OILS(arr_out_img_7);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_8\n");
-// OILS(arr_out_img_8);
-// printf("\n\n\n");
+printf("SIS_iter_8\n");
+OILS(arr_out_img_8);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_9\n");
-// OILS(arr_out_img_9);
-// printf("\n\n\n");
+printf("SIS_iter_9\n");
+OILS(arr_out_img_9);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_10\n");
-// OILS(arr_out_img_10);
-// printf("\n\n\n");
+printf("SIS_iter_10\n");
+OILS(arr_out_img_10);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_11\n");
-// OILS(arr_out_img_11);
-// printf("\n\n\n");
+printf("SIS_iter_11\n");
+OILS(arr_out_img_11);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_12\n");
-// OILS(arr_out_img_12);
-// printf("\n\n\n");
+printf("SIS_iter_12\n");
+OILS(arr_out_img_12);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_13\n");
-// OILS(arr_out_img_13);
-// printf("\n\n\n");
+printf("SIS_iter_13\n");
+OILS(arr_out_img_13);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_14\n");
-// OILS(arr_out_img_14);
-// printf("\n\n\n");
+printf("SIS_iter_14\n");
+OILS(arr_out_img_14);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_15\n");
-// OILS(arr_out_img_15);
-// printf("\n\n\n");
+printf("SIS_iter_15\n");
+OILS(arr_out_img_15);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_16\n");
-// OILS(arr_out_img_16);
-// printf("\n\n\n");
+printf("SIS_iter_16\n");
+OILS(arr_out_img_16);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_17\n");
-// OILS(arr_out_img_17);
-// printf("\n\n\n");
+printf("SIS_iter_17\n");
+OILS(arr_out_img_17);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_18\n");
-// OILS(arr_out_img_18);
-// printf("\n\n\n");
+printf("SIS_iter_18\n");
+OILS(arr_out_img_18);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_19\n");
-// OILS(arr_out_img_19);
-// printf("\n\n\n");
+printf("SIS_iter_19\n");
+OILS(arr_out_img_19);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_20\n");
-// OILS(arr_out_img_20);
-// printf("\n\n\n");
+printf("SIS_iter_20\n");
+OILS(arr_out_img_20);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_21\n");
-// OILS(arr_out_img_21);
-// printf("\n\n\n");
+printf("SIS_iter_21\n");
+OILS(arr_out_img_21);
+printf("\n\n\n");
 
 
-// printf("SIS_iter_22\n");
-// OILS(arr_out_img_22);
-// printf("\n\n\n");
+printf("SIS_iter_22\n");
+OILS(arr_out_img_22);
+printf("\n\n\n");
 
 
 // printf("SIS_iter_23\n");
