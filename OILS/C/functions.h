@@ -234,7 +234,7 @@ void sm_gnrt_3D_vec(double sm_3D_vecs[][4], double sm_sorted_UIS[][3], int N_i)
     }
 }
 
-void sm_validate(double sm_3D_vecs[][4], int sm_IS[][2], double sm_GC[][4], int *N_is, int N_i){
+void sm_validate(double sm_3D_vecs[][4], int sm_IS[][2], double sm_GC[][4], int *N_is, int N_i, double tol, double p_1, double p_2){
     int i, j;
     int N_new = *N_is;
     int votes[N_i];
@@ -248,7 +248,7 @@ void sm_validate(double sm_3D_vecs[][4], int sm_IS[][2], double sm_GC[][4], int 
             if (sm_IS[j][0] != -1){
                 double d_ij = fabs(sm_3D_vecs[i][1]*sm_3D_vecs[j][1] + sm_3D_vecs[i][2]*sm_3D_vecs[j][2] + sm_3D_vecs[i][3]*sm_3D_vecs[j][3]);
                 double d_ij_gc = fabs(sm_GC[sm_IS[i][1] - 1][1]*sm_GC[sm_IS[j][1] - 1][1] + sm_GC[sm_IS[i][1] - 1][2]*sm_GC[sm_IS[j][1] - 1][2] + sm_GC[sm_IS[i][1] - 1][3]*sm_GC[sm_IS[j][1] - 1][3]);
-                if (fabs(d_ij/d_ij_gc - 1) < TOL/100){
+                if (fabs(d_ij/d_ij_gc - 1) < tol/100){
                     votes[i]++;
                     votes[j]++;
                 }
@@ -257,7 +257,7 @@ void sm_validate(double sm_3D_vecs[][4], int sm_IS[][2], double sm_GC[][4], int 
             }
         }
     }
-    int N_LB = P1*(N_new)/100;
+    int N_LB = p_1*(N_new)/100;
     for (i = 0; i < N_i; i++){
         if (sm_IS[i][0] == -1)
             continue;
@@ -266,7 +266,7 @@ void sm_validate(double sm_3D_vecs[][4], int sm_IS[][2], double sm_GC[][4], int 
             N_new--;
         }
     }
-    int N_UB = P2*(N_new)/100;
+    int N_UB = p_2*(N_new)/100;
     for (i = 0; i < N_i; i++){
         if (sm_IS[i][0] == -1)
             continue;
@@ -367,7 +367,7 @@ void starMatching(double centroids_st[MAX_STARS][3], int tot_stars, double data[
         }
     }
 
-    sm_validate(sm_3D_vecs, sm_IS, sm_GC, &N_is, N_i);
+    sm_validate(sm_3D_vecs, sm_IS, sm_GC, &N_is, N_i, tol, p_1, p_2);
 
     // Index variable for organising SM output
     int data_index = 0;
