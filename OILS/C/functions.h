@@ -9,6 +9,25 @@
 
 //RGA functions
 
+void sort(double centroids_st[][3], unsigned long pixel_track[MAX_STARS], int tot_stars){
+	double temp_st[3];
+	unsigned long temp_pt;
+	for (int i = 0; i < tot_stars; i++){
+		for (int j = 0; j < tot_stars-i-1; j++){
+			if(pixel_track[j] < pixel_track[j + 1]){
+				temp_pt = pixel_track[j];
+				pixel_track[j] = pixel_track[j + 1];
+				pixel_track[j + 1] = temp_pt;
+				for (int k = 0; k < 3; k++){
+					temp_st[k] = centroids_st[j][k];
+					centroids_st[j][k] = centroids_st[j + 1][k];
+					centroids_st[j + 1][k] = temp_st[k];
+				}
+			}
+		}
+	}
+}
+	
 void getData(unsigned short p_i, unsigned short p_j, unsigned short* star_num, unsigned long x_sum[], unsigned long y_sum[], unsigned long pixel_sum[], unsigned short num_pixels[], short arr_out_img[BREADTH + 2][LENGTH + 2]){
     // base case
     if (arr_out_img[p_j][p_i] <= THRESHOLD)
@@ -41,6 +60,7 @@ void regionGrowth(short arr_out_img[BREADTH + 2][LENGTH + 2], double centroids_s
     unsigned long y_sum[MAX_STARS] = {0};
     unsigned long pixel_sum[MAX_STARS] = {0};
     unsigned short num_pixels[MAX_STARS] = {0};
+    unsigned long pixel_track[MAX_STARS] = {0};
 
     int i = 0;
     int j = 0;
@@ -63,14 +83,44 @@ void regionGrowth(short arr_out_img[BREADTH + 2][LENGTH + 2], double centroids_s
             centroids_st[valid_stars-1][0] = valid_stars;
             centroids_st[valid_stars-1][1] = ((double)x_sum[k] / (double)pixel_sum[k] - ((double)(LENGTH / 2) + 0.5)) * PIXEL_WIDTH;
             centroids_st[valid_stars-1][2] = (-1 * ((double)y_sum[k] / (double)pixel_sum[k] - ((double)(BREADTH / 2) + 0.5))) * PIXEL_WIDTH;
+			pixel_track[valid_stars-1] = pixel_sum[k];
         }
     }
 
     *tot_stars += valid_stars;
+	sort(centroids_st, pixel_track, *tot_stars);
+	if (*tot_stars > NUM_MAX_STARS)
+		*tot_stars = NUM_MAX_STARS;
     return;
 }
 
+
 //SM functions
+void bubbleSort(double arr[][3], int n)
+{
+    int i, j;
+    long double temp[3];
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < n - i - 1; j++)
+        {
+            if (arr[j][1] * arr[j][1] + arr[j][2] * arr[j][2] > arr[j + 1][1] * arr[j + 1][1] + arr[j + 1][2] * arr[j + 1][2])
+            {
+                // swap the elements
+                temp[0] = arr[j][0];
+                temp[1] = arr[j][1];
+                temp[2] = arr[j][2];
+                arr[j][0] = arr[j + 1][0];
+                arr[j][1] = arr[j + 1][1];
+                arr[j][2] = arr[j + 1][2];
+                arr[j + 1][0] = temp[0];
+                arr[j + 1][1] = temp[1];
+                arr[j + 1][2] = temp[2];
+            }
+        }
+    }
+}
+
 void sm_4_star_circulate(double sm_3D_vecs[][4], int *N_circ, int N_i)
 {   
     int v;
@@ -307,6 +357,9 @@ void starMatching(double centroids_st[MAX_STARS][3], int tot_stars, double data[
 
     // Array for storing the Identified Stars
     int sm_IS[N_GC][2];
+
+    //Sorting the UIS according to euclidean distance
+    bubbleSort(centroids_st, N_i);
 
     // Initialize a block of memory to -1
     memset(sm_IS, -1, N_GC * sizeof(sm_IS[0]));
