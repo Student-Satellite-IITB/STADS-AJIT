@@ -85,7 +85,7 @@ void sm(long double UIS[][3], int N_i)
     memset(sm_IS, -1, N_gc * sizeof(sm_IS[0]));
 
     // sorting the UIS table according to Euclidean distance
-    bubbleSort(UIS, N_i);
+    // bubbleSort(UIS, N_i);
 
     for (int i = 0; i < N_i; i++)
     {
@@ -97,7 +97,7 @@ void sm(long double UIS[][3], int N_i)
     }
 
 
-    long double sm_3D_vecs[N_i][5]; // this stores the 3D vectors generated from the UIS table
+    long double sm_3D_vecs[N_i][4]; // this stores the 3D vectors generated from the UIS table
     // generating 3D vectors from the sorted UIS table
     sm_gnrt_3D_vec(sm_3D_vecs, UIS, foc, N_i);
 
@@ -109,7 +109,7 @@ void sm(long double UIS[][3], int N_i)
         if (N_uis >= 4 && N_is < N_th) // N_uis >= 4 for running 4 star algo & N_is(identified stars) < N_th(threshold number of matched stars)
         {
             int N_match = 0; // variable for storing the number of stars matched in a particular iteration
-            double four_stars[4][5]; // this will store the extracted 4 stars from the sm_3D_vecs table
+            double four_stars[4][4]; // this will store the extracted 4 stars from the sm_3D_vecs table
             //for (int countt = 0, j = 0; j < N_i && countt < 4; j++) // here the variable countt is used just to count whether 4 stars have been extracted
             for (countt = 0, j = 0; j < N_i && countt < 4; j++)
             {
@@ -117,7 +117,7 @@ void sm(long double UIS[][3], int N_i)
                 {
 
                     //for (int k = 0; k < 4; k++)
-                    for (k = 0; k < 5; k++)
+                    for (k = 0; k < 4; k++)
                     {
                         four_stars[countt][k] = sm_3D_vecs[j][k];
                     }
@@ -145,17 +145,7 @@ void sm(long double UIS[][3], int N_i)
             break;
         }
     }
-    for (i = 0; i < N_i; i++){
-        for(j = 0; j < N_i-i-1; j++){
-            if(sm_3D_vecs[j][5] > sm_3D_vecs[j+1][5]){
-                for(k = 0; k < 5; k++){
-                    sm_3D_vecs[j][k] = sm_3D_vecs[j][k] + sm_3D_vecs[j+1][k];
-                    sm_3D_vecs[j+1][k] = sm_3D_vecs[j][k] - sm_3D_vecs[j+1][k];
-                    sm_3D_vecs[j][k] = sm_3D_vecs[j][k] - sm_3D_vecs[j+1][k];
-                }
-            }
-        }
-    }
+    
     printf(" \n Before Verification, Total matched stars :- %d\n\n", N_is);
     printf("  Input_ID  Desired_star_ID  X             Y             Z\n");
     printf("-------------------------------------------------------------------\n");

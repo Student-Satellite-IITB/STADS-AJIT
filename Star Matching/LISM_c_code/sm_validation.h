@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h> 
 
-void sm_validate(long double sm_3D_vecs[][5], int sm_IS[][2], double sm_GC[][4], int *N_is, int N_i, int N_gc, double tol, double p_1, double p_2){
+void sm_validate(long double sm_3D_vecs[][4], int sm_IS[][2], double sm_GC[][4], int *N_is, int N_i, int N_gc, double tol, double p_1, double p_2){
     int i, j;
     int N_new = *N_is;
     int votes[N_i];
