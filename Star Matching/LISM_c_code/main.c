@@ -166,7 +166,7 @@ void sm(long double UIS[][3], int N_i)
     }
     printf("-------------------------------------------------------------------\n");
     sm_validate(sm_3D_vecs, sm_IS, sm_GC, &N_is, N_i, N_gc, tol, p_1, p_2);
-    printf(" \nAfter verification, Total matched stars :- %d\n\n", N_is);
+    printf(" \nTotal matched stars :- %d\n\n", N_is);
     printf("  Input_ID  Desired_star_ID  X             Y             Z\n");
     printf("-------------------------------------------------------------------\n");
     //for (int i = 0; i < N_gc; i++)
