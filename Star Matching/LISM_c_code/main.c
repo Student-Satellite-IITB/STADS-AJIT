@@ -67,7 +67,7 @@ void sm(long double UIS[][3], int N_i)
     N_th = 8;
 
     //Constants for validation
-    double tol = 5;
+    double tol = 0.5;
     double p_1 = 35;
     double p_2 = 80;
 
@@ -85,19 +85,19 @@ void sm(long double UIS[][3], int N_i)
     memset(sm_IS, -1, N_gc * sizeof(sm_IS[0]));
 
     // sorting the UIS table according to Euclidean distance
-    // bubbleSort(UIS, N_i);
+    bubbleSort(UIS, N_i);
 
-    // for (int i = 0; i < N_i; i++)
-    // {
-    //     for (int j = 0; j < 3; j++)
-    //     {
-    //         printf("%Lf", UIS[i][j]);
-    //     }
-    //     printf("\n");
-    // }
+    for (int i = 0; i < N_i; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            printf("%Lf", UIS[i][j]);
+        }
+        printf("\n");
+    }
 
 
-    long double sm_3D_vecs[N_i][4]; // this stores the 3D vectors generated from the UIS table
+    long double sm_3D_vecs[N_i][5]; // this stores the 3D vectors generated from the UIS table
     // generating 3D vectors from the sorted UIS table
     sm_gnrt_3D_vec(sm_3D_vecs, UIS, foc, N_i);
 
@@ -109,7 +109,7 @@ void sm(long double UIS[][3], int N_i)
         if (N_uis >= 4 && N_is < N_th) // N_uis >= 4 for running 4 star algo & N_is(identified stars) < N_th(threshold number of matched stars)
         {
             int N_match = 0; // variable for storing the number of stars matched in a particular iteration
-            double four_stars[4][4]; // this will store the extracted 4 stars from the sm_3D_vecs table
+            double four_stars[4][5]; // this will store the extracted 4 stars from the sm_3D_vecs table
             //for (int countt = 0, j = 0; j < N_i && countt < 4; j++) // here the variable countt is used just to count whether 4 stars have been extracted
             for (countt = 0, j = 0; j < N_i && countt < 4; j++)
             {
@@ -117,7 +117,7 @@ void sm(long double UIS[][3], int N_i)
                 {
 
                     //for (int k = 0; k < 4; k++)
-                    for (k = 0; k < 4; k++)
+                    for (k = 0; k < 5; k++)
                     {
                         four_stars[countt][k] = sm_3D_vecs[j][k];
                     }
@@ -143,6 +143,17 @@ void sm(long double UIS[][3], int N_i)
         {
             // end the loop if the conditions "N_uis >= 4 && N_is < N_th" are not satisfied
             break;
+        }
+    }
+    for (i = 0; i < N_i; i++){
+        for(j = 0; j < N_i-i-1; j++){
+            if(sm_3D_vecs[j][5] > sm_3D_vecs[j+1][5]){
+                for(k = 0; k < 5; k++){
+                    sm_3D_vecs[j][k] = sm_3D_vecs[j][k] + sm_3D_vecs[j+1][k];
+                    sm_3D_vecs[j+1][k] = sm_3D_vecs[j][k] - sm_3D_vecs[j+1][k];
+                    sm_3D_vecs[j][k] = sm_3D_vecs[j][k] - sm_3D_vecs[j+1][k];
+                }
+            }
         }
     }
     printf(" \n Before Verification, Total matched stars :- %d\n\n", N_is);
@@ -185,34 +196,34 @@ void sm(long double UIS[][3], int N_i)
     }
 }
 int main(){
-    printf("TEST CASE 1:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_0, CORTOS_N_i_0);
+    // printf("TEST CASE 1:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_0, CORTOS_N_i_0);
     printf("TEST CASE 2:-\n");
     printf("-------------------------------------------------------------------\n");
     sm(UIS_1, CORTOS_N_i_1);
-    printf("TEST CASE 3:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_2, CORTOS_N_i_2);
-    printf("TEST CASE 4:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_3, CORTOS_N_i_3);
-    printf("TEST CASE 5:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_4, CORTOS_N_i_4);
-    printf("TEST CASE 6:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_5, CORTOS_N_i_5);
-    printf("TEST CASE 7:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_6, CORTOS_N_i_6);
-    printf("TEST CASE 8:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_7, CORTOS_N_i_7);
-    printf("TEST CASE 9:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_8, CORTOS_N_i_8);
-    printf("TEST CASE 10:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_9, CORTOS_N_i_9);
+    // printf("TEST CASE 3:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_2, CORTOS_N_i_2);
+    // printf("TEST CASE 4:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_3, CORTOS_N_i_3);
+    // printf("TEST CASE 5:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_4, CORTOS_N_i_4);
+    // printf("TEST CASE 6:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_5, CORTOS_N_i_5);
+    // printf("TEST CASE 7:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_6, CORTOS_N_i_6);
+    // printf("TEST CASE 8:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_7, CORTOS_N_i_7);
+    // printf("TEST CASE 9:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_8, CORTOS_N_i_8);
+    // printf("TEST CASE 10:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_9, CORTOS_N_i_9);
 }

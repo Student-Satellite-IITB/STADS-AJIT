@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-void sm_gnrt_3D_vec(long double sm_3D_vecs[][4],long double sm_sorted_UIS[][3], double foc, int N_i){
+void sm_gnrt_3D_vec(long double sm_3D_vecs[][5],long double sm_sorted_UIS[][3], double foc, int N_i){
     // this function is pretty straight-forward; directly the formula for generating 3D vectors has been applied
     for (int i = 0; i < N_i; i++)
     {
@@ -11,5 +11,6 @@ void sm_gnrt_3D_vec(long double sm_3D_vecs[][4],long double sm_sorted_UIS[][3], 
         sm_3D_vecs[i][1] = (sm_sorted_UIS[i][1] / (foc*local));
         sm_3D_vecs[i][2] = (sm_sorted_UIS[i][2] / (foc*local));
         sm_3D_vecs[i][3] = 1/local;
+        sm_3D_vecs[i][4] = i;
     }
 }
