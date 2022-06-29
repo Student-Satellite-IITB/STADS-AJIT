@@ -2,7 +2,10 @@
 .vscode/*
 *.exe
 <<<<<<< HEAD
+<<<<<<< HEAD
 *.out
 *.json
+=======
+>>>>>>> parent of fc0ee7e (Update .gitignore)
 =======
 >>>>>>> parent of fc0ee7e (Update .gitignore)
