@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h> 
 
-void sm_validate(long double sm_3D_vecs[][4], int sm_IS[][2], double sm_GC[][4], int *N_is, int N_i, int N_gc, double tol, double p_1, double p_2){
+void sm_validate(long double sm_3D_vecs[][4], int sm_IS[][2], long double body_vecs_IS[][4], double sm_GC[][4], int *N_is, int N_i, int N_gc, double tol, double p_1, double p_2){
     int i, j;
     int N_new = *N_is;
     int votes[N_i];
@@ -12,14 +12,10 @@ void sm_validate(long double sm_3D_vecs[][4], int sm_IS[][2], double sm_GC[][4],
             continue;
         for (j = i+1; j< N_i-1; j++){
             if (sm_IS[j][0] != -1){
-                long double norm1 = sqrt(sm_3D_vecs[i][1]*sm_3D_vecs[i][1] + sm_3D_vecs[i][2]*sm_3D_vecs[i][2] + sm_3D_vecs[i][3]*sm_3D_vecs[i][3]);
-                long double norm2 = sqrt(sm_3D_vecs[j][1]*sm_3D_vecs[j][1] + sm_3D_vecs[j][2]*sm_3D_vecs[j][2] + sm_3D_vecs[j][3]*sm_3D_vecs[j][3]);
-                long double norm_gc_1 = sqrt(sm_GC[sm_IS[i][0]][1]*sm_GC[sm_IS[i][0]][1] + sm_GC[sm_IS[i][0]][2]*sm_GC[sm_IS[i][0]][2] + sm_GC[sm_IS[i][0]][3]*sm_GC[sm_IS[i][0]][3]);
-                long double norm_gc_2 = sqrt(sm_GC[sm_IS[j][0]][1]*sm_GC[sm_IS[j][0]][1] + sm_GC[sm_IS[j][0]][2]*sm_GC[sm_IS[j][0]][2] + sm_GC[sm_IS[j][0]][3]*sm_GC[sm_IS[j][0]][3]);
-                long double d_ij = fabs(sm_3D_vecs[i][1]*sm_3D_vecs[j][1] + sm_3D_vecs[i][2]*sm_3D_vecs[j][2] + sm_3D_vecs[i][3]*sm_3D_vecs[j][3])/(norm1*norm2);
-                printf("i: %d, j: %d, norm1: %Lf, norm2: %Lf, d_ij: %Lf\n", i, j, norm1, norm2, d_ij);
-                long double d_ij_gc = fabs(sm_GC[sm_IS[i][0]][1]*sm_GC[sm_IS[j][0]][1] + sm_GC[sm_IS[i][0]][2]*sm_GC[sm_IS[j][0]][2] + sm_GC[sm_IS[i][0]][3]*sm_GC[sm_IS[j][0]][3])/(norm_gc_1*norm_gc_2);
-                printf("i: %d, j: %d, norm_gc_1: %Lf, norm_gc_2: %Lf, d_ij: %Lf\n", i, j, norm_gc_1, norm_gc_2, d_ij_gc);
+                long double d_ij = fabs(sm_3D_vecs[i][1]*sm_3D_vecs[j][1] + sm_3D_vecs[i][2]*sm_3D_vecs[j][2] + sm_3D_vecs[i][3]*sm_3D_vecs[j][3]);
+                // printf("i: %d, j: %d, norm1: %Lf, norm2: %Lf, d_ij: %Lf\n", i, j, norm1, norm2, d_ij);
+                long double d_ij_gc = fabs(sm_GC[(int)sm_IS[i][1] - 1][1]*sm_GC[(int)sm_IS[j][1] - 1][1] + sm_GC[(int)sm_IS[i][1] - 1][2]*sm_GC[(int)sm_IS[j][1] - 1][2] + sm_GC[(int)sm_IS[i][1] - 1][3]*sm_GC[(int)sm_IS[j][1] - 1][3]);
+                // printf("i: %d, j: %d, norm_gc_1: %Lf, norm_gc_2: %Lf, d_ij_gc: %Lf\n", i, j, norm_gc_1, norm_gc_2, d_ij_gc);
                 if (fabs(d_ij/d_ij_gc - 1) < tol/100){
                     votes[i]++;
                     votes[j]++;
@@ -36,7 +32,8 @@ void sm_validate(long double sm_3D_vecs[][4], int sm_IS[][2], double sm_GC[][4],
             continue;
         if (votes[i] < N_LB){
             sm_IS[i][0] = -1;
-            printf("%d discarded, %d votes \n", i, votes[i]);
+            body_vecs_IS[i][0] = -1;
+            // printf("%d discarded, %d votes \n", i, votes[i]);
             N_new--;
         }
     }
@@ -47,7 +44,8 @@ void sm_validate(long double sm_3D_vecs[][4], int sm_IS[][2], double sm_GC[][4],
             continue;
         if (votes[i] < N_UB){
             sm_IS[i][0] = -1;
-            printf("%d discarded, %d votes \n\n\n", i, votes[i]);
+            body_vecs_IS[i][0] = -1;
+            // printf("%d discarded, %d votes \n\n\n", i, votes[i]);
             N_new--;
         }
     }
