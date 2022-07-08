@@ -67,7 +67,7 @@ void sm(long double UIS[][3], int N_i)
     N_th = 8;
 
     //Constants for validation
-    double tol = 5;
+    double tol = 0.5;
     double p_1 = 35;
     double p_2 = 80;
 
@@ -89,14 +89,14 @@ void sm(long double UIS[][3], int N_i)
     // sorting the UIS table according to Euclidean distance
     // bubbleSort(UIS, N_i);
 
-    // for (int i = 0; i < N_i; i++)
-    // {
-    //     for (int j = 0; j < 3; j++)
-    //     {
-    //         printf("%Lf", UIS[i][j]);
-    //     }
-    //     printf("\n");
-    // }
+    for (int i = 0; i < N_i; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            printf("%Lf", UIS[i][j]);
+        }
+        printf("\n");
+    }
 
 
     long double sm_3D_vecs[N_i][4]; // this stores the 3D vectors generated from the UIS table
@@ -147,6 +147,7 @@ void sm(long double UIS[][3], int N_i)
             break;
         }
     }
+    
     printf(" \n Before Verification, Total matched stars :- %d\n\n", N_is);
     printf("  Input_ID  Desired_star_ID  X             Y             Z          X_b         Y_b         Z_b\n");
     printf("-----------------------------------------------------------------------------------------------------\n");
@@ -193,34 +194,34 @@ void sm(long double UIS[][3], int N_i)
     }
 }
 int main(){
-    printf("TEST CASE 1:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_0, CORTOS_N_i_0);
+    // printf("TEST CASE 1:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_0, CORTOS_N_i_0);
     printf("TEST CASE 2:-\n");
     printf("-------------------------------------------------------------------\n");
     sm(UIS_1, CORTOS_N_i_1);
-    printf("TEST CASE 3:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_2, CORTOS_N_i_2);
-    printf("TEST CASE 4:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_3, CORTOS_N_i_3);
-    printf("TEST CASE 5:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_4, CORTOS_N_i_4);
-    printf("TEST CASE 6:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_5, CORTOS_N_i_5);
-    printf("TEST CASE 7:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_6, CORTOS_N_i_6);
-    printf("TEST CASE 8:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_7, CORTOS_N_i_7);
-    printf("TEST CASE 9:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_8, CORTOS_N_i_8);
-    printf("TEST CASE 10:-\n");
-    printf("-------------------------------------------------------------------\n");
-    sm(UIS_9, CORTOS_N_i_9);
+    // printf("TEST CASE 3:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_2, CORTOS_N_i_2);
+    // printf("TEST CASE 4:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_3, CORTOS_N_i_3);
+    // printf("TEST CASE 5:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_4, CORTOS_N_i_4);
+    // printf("TEST CASE 6:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_5, CORTOS_N_i_5);
+    // printf("TEST CASE 7:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_6, CORTOS_N_i_6);
+    // printf("TEST CASE 8:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_7, CORTOS_N_i_7);
+    // printf("TEST CASE 9:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_8, CORTOS_N_i_8);
+    // printf("TEST CASE 10:-\n");
+    // printf("-------------------------------------------------------------------\n");
+    // sm(UIS_9, CORTOS_N_i_9);
 }

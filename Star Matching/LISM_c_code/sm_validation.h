@@ -7,13 +7,6 @@ void sm_validate(long double sm_3D_vecs[][4], int sm_IS[][2], long double body_v
     int N_new = *N_is;
     int votes[N_i];
     memset(votes, 0, N_i * sizeof(votes[0]));
-    // for (i = 0; i<N_i; i++){
-    //     for (j = 0; j<4; j++){
-    //         printf("%Lf         ", sm_3D_vecs[i][j]);
-    //     }
-    //     printf("\n");
-    // }
-
     for (i = 0; i < N_i; i++){
         if (sm_IS[i][0] == -1)
             continue;
@@ -33,7 +26,7 @@ void sm_validate(long double sm_3D_vecs[][4], int sm_IS[][2], long double body_v
         }
     }
     int N_LB = p_1*(N_new)/100;
-    // printf("\nN_LB: %d \n", N_LB);
+    printf("\nN_LB: %d \n", N_LB);
     for (i = 0; i < N_i; i++){
         if (sm_IS[i][0] == -1)
             continue;
@@ -45,7 +38,7 @@ void sm_validate(long double sm_3D_vecs[][4], int sm_IS[][2], long double body_v
         }
     }
     int N_UB = p_2*(N_new)/100;
-    // printf("N_UB: %d \n", N_UB);
+    printf("N_UB: %d \n", N_UB);
     for (i = 0; i < N_i; i++){
         if (sm_IS[i][0] == -1)
             continue;

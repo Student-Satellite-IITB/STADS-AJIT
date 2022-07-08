@@ -11,7 +11,7 @@ void sm_4_star_circulate(long double sm_3D_vecs[][4], int *N_circ, int N_i){
             last = j;
             break;
         }
-    }
+    }   
     double curr[4] = {sm_3D_vecs[last][0], sm_3D_vecs[last][1], sm_3D_vecs[last][2], sm_3D_vecs[last][3]};
     double var; //an auxiliary variable
     for (int k = 0; k < N_i; k++)
