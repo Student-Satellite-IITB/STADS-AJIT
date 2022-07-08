@@ -1,3 +1,6 @@
 
 *.csv
 OILS/C/out
+.vscode/*
+*.txt
+OILS/C/main
