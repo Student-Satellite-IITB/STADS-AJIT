@@ -13,6 +13,7 @@
 #define LENGTH 808
 #define BREADTH 608
 #define PIXEL_WIDTH 0.0000048
+#define NUM_MAX_STARS 13
 
 //SM constants
 #define FOCAL_LENGTH 0.036
