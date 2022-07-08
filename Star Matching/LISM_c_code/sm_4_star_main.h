@@ -13,7 +13,7 @@ int already_matched(int sm_IS[][2],int indx,int N_gc){
     return 0;
 }
 
-void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[][2], int sm_K_vec_arr[][3], int *N_match, int N_i, int N_gc, double delta, double q, double m)
+void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[][2], long double body_vecs_IS[][4], int sm_K_vec_arr[][3], int *N_match, int N_i, int N_gc, double delta, double q, double m)
 {
     double SIM[N_gc][6]; // SIM implies star identification matrix which is basically the table in which we set those values as 1 
                          // which are corresponding to the star ids obtained from the kvec catalogue
@@ -145,7 +145,11 @@ void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[]
                     if (sm_IS[k][0]==-1)
                     {
                         sm_IS[k][0] = (int)four_stars[j][0];
+                        body_vecs_IS[k][0] = four_stars[j][0];
                         sm_IS[k][1] = temp;
+                        for (int i = 1; i < 4; i++){
+                            body_vecs_IS[k][i] = four_stars[j][i]; 
+                        }
                         break;
                     }
                 }
