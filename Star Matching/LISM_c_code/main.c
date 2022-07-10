@@ -211,7 +211,7 @@ void sm(long double UIS[][3], int N_i)
             //for (int j = 1; j < 4; j++)
             for (j = 1; j < 4; j++)
             {
-                printf("%lf    ", sm_GC[sm_IS[i][1]][j]);
+                printf("%lf    ", sm_GC[sm_IS[i][1] - 1][j]);
             }
             printf("\n");
         }

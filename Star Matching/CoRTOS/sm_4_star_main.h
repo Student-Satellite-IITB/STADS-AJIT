@@ -32,6 +32,15 @@ void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[]
         }
     }*/
     memset(SIM, 0, N_gc * 6 *  sizeof(SIM[0][0]));
+
+    int SIM_indx_arr[6*N_gc];
+    memset(SIM_indx_arr,0, N_gc * 6* sizeof(SIM_indx_arr[0]));
+    
+    int SIM_flags[N_gc];
+    memset(SIM_flags, 0, 1000*sizeof(SIM_flags[0]));
+
+    int top_indx = 0;
+
      uint64_t t3 = cortos_get_clock_time();
     uint32_t txx = t1&(0xffffffff);
     uint32_t t13 = t3&(0xffffffff);
@@ -107,6 +116,9 @@ void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[]
             if (k_start==k_end)
             {
             	SIM[sm_K_vec_arr[k_end-1][0]][j] = 1;
+
+                SIM_indx_arr[top_indx]=sm_K_vec_arr[k_end-1][0];
+                top_indx ++;
             }
             else
             {
@@ -115,6 +127,10 @@ void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[]
 	            {
 	                SIM[sm_K_vec_arr[i-1][0]][j] = 1; // sm_K_vec_arr[i][1 (or 2)] gives you the star ids which CAN be the unidentified stars
 	                SIM[sm_K_vec_arr[i-1][1]][j] = 1;
+
+                    SIM_indx_arr[top_indx]=sm_K_vec_arr[i-1][0];
+                    SIM_indx_arr[top_indx+1]=sm_K_vec_arr[i-1][1];
+                    top_indx +=2;
 	            }
             }
         }
@@ -122,6 +138,10 @@ void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[]
         uint32_t t33 = t3&(0xffffffff);
         uint32_t t34 = t4&(0xffffffff);
         cortos_printf("\ntime required for accessing reference catalogue is %u \n", t34-t33);
+    }
+    for(i=0; i<top_indx+1; i++)
+    {
+        SIM_flags[SIM_indx_arr[i]]=1;
     }
 
     //SIM generated, now SMM gets generated
@@ -133,8 +153,12 @@ void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[]
         int matched_rows = 0; // this stores the number of rows matched
         int temp = 0; // this variable stores the row number of the matched row
         //for (int k = 0; k < N_gc; k++)
-        for (k = 0; k < N_gc; k++)
+        for (i = 0; i <top_indx+1 ; i++)
         {
+             k = SIM_indx_arr[i];
+
+             if(SIM_flags[k]==1)
+          { 
             if (SIM[k][0] == checks[j][0]
              && SIM[k][1] == checks[j][1]
              && SIM[k][2] == checks[j][2]
@@ -145,6 +169,8 @@ void sm_4_star (double four_stars[][4], long double sm_3D_vecs[][4], int sm_IS[]
                 matched_rows++;
                 temp = k;
             }
+            SIM_flags[k]=0;
+          }
         }
         if (matched_rows == 1)
         {
