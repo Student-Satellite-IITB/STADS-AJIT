@@ -1,6 +1,7 @@
 
 .vscode/*
 *.exe
+*.json
 *.csv
 *.out
 *.json

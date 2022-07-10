@@ -8,6 +8,7 @@
 #include "sm_4_star_circulate.h"
 #include "bubblesort.h"
 #include "sm_constants.h"
+#include "sm_validation.h"
 
 #include "sm_K_vec_arr.h"
 #include "sm_GC.h"
@@ -64,56 +65,11 @@ void sm(long double UIS[][3], int N_i)
     //scanf("%d", &N_th);
     N_th = 8;
 
-    //--------------------------------------------------------
-    // taking input of the K vector catalogue
-    /*FILE *file;
-    file = fopen("sm_Reference_Star_Catalogue_4SM_6.5.txt", "r");
-    // file = fopen("kvec.txt", "r");
-    for (int i = 0; i < N_kvec_pairs; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            int temp;
-            fscanf(file, "%d", &temp);
-            sm_K_vec_arr[i][j] = temp;
-        }
-    }
-    fclose(file);
+    //Constants for validation
+    double tol = 0.5;
+    double p_1 = 35;
+    double p_2 = 80;
 
-    // taking input of test file
-    long double UIS[N_i][3];     // 2D array for storing (x,y) coordinates and star IDs of unidentified stars
-    FILE *file2;
-    file2 = fopen("sm_test_case_dummy2.txt", "r");
-    // file2 = fopen("sm_test_case_2.txt", "r"); // type the name of your input test file here
-    // file2 = fopen("sample_input.txt", "r");
-    for (int i = 0; i < N_i; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            long double temp;
-            fscanf(file2, "%Lf", &temp);
-            UIS[i][j] = temp;
-        }
-    }
-    fclose(file2);
-
-    // taking input of Guide star catalogue
-    double sm_GC[8876][4];
-    // double sm_GC[5060][4];
-    FILE *file3;
-    file3 = fopen("sm_Guide_Star_Catalogue_6.5.txt", "r");
-    // file3 = fopen("gsc.txt", "r"); 
-    for (int i = 0; i < N_gc; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            long double temp;
-            fscanf(file3, "%Lf", &temp);
-            sm_GC[i][j] = temp;
-        }
-    }
-    fclose(file3);
-    */
     //--------------------------------------------------------
     // constants for using the k vector table (to be used in the 4 star matching)
 
@@ -125,7 +81,9 @@ void sm(long double UIS[][3], int N_i)
     
     // -------------------------------------------------------------------------------------------------------
     int sm_IS[N_gc][2]; // array for storing the matched stars
+    long double body_vecs_IS[N_gc][4]; //Array for storing corresponding body frame vectors for matched stars
     memset(sm_IS, -1, N_gc * sizeof(sm_IS[0]));
+    memset(body_vecs_IS, -1, N_gc * sizeof(body_vecs_IS[0]));
 
     // sorting the UIS table according to Euclidean distance
     // bubbleSort(UIS, N_i);
@@ -177,7 +135,7 @@ void sm(long double UIS[][3], int N_i)
                     countt++;
                 }
             }
-            sm_4_star(four_stars, sm_3D_vecs, sm_IS, sm_K_vec_arr, &N_match, N_i, N_gc, delta, q, m);
+            sm_4_star(four_stars, sm_3D_vecs, sm_IS, body_vecs_IS, sm_K_vec_arr, &N_match, N_i, N_gc, delta, q, m);
             N_uis -= N_match;
             N_is += N_match;
 
@@ -198,20 +156,47 @@ void sm(long double UIS[][3], int N_i)
             break;
         }
     }
-    printf(" \nTotal matched stars :- %d\n\n", N_is);
-    printf("  Input_ID  Desired_star_ID  X             Y             Z\n");
-    printf("-------------------------------------------------------------------\n");
+    
+    printf(" \n Before Verification, Total matched stars :- %d\n\n", N_is);
+    printf("  Input_ID  Desired_star_ID  X             Y             Z          X_b         Y_b         Z_b\n");
+    printf("-----------------------------------------------------------------------------------------------------\n");
     //for (int i = 0; i < N_gc; i++)
     //for (i = 0; i < N_gc; i++)
     for (i = 0; i < N_i; i++)
     {
-        if (sm_IS[i][0]!=-1)
+        if ((int)sm_IS[i][0]!=-1)
         {
             printf("%d     %d      %d         ", i, sm_IS[i][0], sm_IS[i][1]);
             //for (int j = 1; j < 4; j++)
             for (j = 1; j < 4; j++)
             {
-                printf("%lf    ", sm_GC[sm_IS[i][1] - 1][j]);
+                printf("%lf    ", sm_GC[(int)sm_IS[i][1] - 1][j]);
+            }
+            for (j = 1; j < 4; j++){
+                printf("%Lf     ", body_vecs_IS[i][j]);
+            }
+            printf("\n");
+        }
+    }
+    printf("----------------------------------------------------------------------------------------------------\n");
+    sm_validate(sm_3D_vecs, sm_IS, body_vecs_IS, sm_GC, &N_is, N_i, N_gc, tol, p_1, p_2);
+    printf(" \nAfter verification, Total matched stars :- %d\n\n", N_is);
+    printf("  Input_ID  Desired_star_ID  X             Y             Z          X_b         Y_b         Z_b\n");
+    printf("----------------------------------------------------------------------------------------------------\n");
+    //for (int i = 0; i < N_gc; i++)
+    //for (i = 0; i < N_gc; i++)
+    for (i = 0; i < N_i; i++)
+    {
+        if ((int)sm_IS[i][0]!=-1)
+        {
+            printf("%d     %d      %d         ", i, sm_IS[i][0], sm_IS[i][1]);
+            //for (int j = 1; j < 4; j++)
+            for (j = 1; j < 4; j++)
+            {
+                printf("%lf    ", sm_GC[(int)sm_IS[i][1] - 1][j]);
+            }
+            for (j = 1; j < 4; j++){
+                printf("%Lf     ", body_vecs_IS[i][j]);
             }
             printf("\n");
         }

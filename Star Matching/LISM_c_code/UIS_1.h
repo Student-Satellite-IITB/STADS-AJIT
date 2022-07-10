@@ -1,3 +1,4 @@
+//#include <cortos.h>
 //CORTOS_N_i_1 - Number of input centroids
 #define CORTOS_N_i_1 10
 long double UIS_1[CORTOS_N_i_1][3]={{1951,-0.000547674818835286,-0.000442897377177649},
