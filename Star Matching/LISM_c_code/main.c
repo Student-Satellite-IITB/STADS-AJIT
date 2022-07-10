@@ -29,7 +29,6 @@
 
 void sm(long double UIS[][3], int N_i)
 {
-    // uint64_t t1 = cortos_get_clock_time();
     int i, countt, j, k; //Declaring counter variables
     // inputs/constants---------------------------------------
 
@@ -89,22 +88,32 @@ void sm(long double UIS[][3], int N_i)
     // sorting the UIS table according to Euclidean distance
     // bubbleSort(UIS, N_i);
 
-    for (int i = 0; i < N_i; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            printf("%Lf", UIS[i][j]);
-        }
-        printf("\n");
-    }
+    // for (int i = 0; i < N_i; i++)
+    // {
+    //     for (int j = 0; j < 3; j++)
+    //     {
+    //         printf("%Lf", UIS[i][j]);
+    //     }
+    //     printf("\n");
+    // }
 
 
     long double sm_3D_vecs[N_i][4]; // this stores the 3D vectors generated from the UIS table
     // generating 3D vectors from the sorted UIS table
     sm_gnrt_3D_vec(sm_3D_vecs, UIS, foc, N_i);
 
+    // for (int i = 0; i < N_i; i++)
+    // {
+    //     for (int j = 0; j < 4; j++)
+    //     {
+    //         printf("%Lf ", sm_3D_vecs[i][j]);
+    //     }
+    //     printf("\n");
+    // }
+
     // main algo starts here
     int circ_flag = 1; // flag which stores the number of times the sm_3D_vecs table has been circulated
+    //for (int i = 1; i <= N_max; i++) // N_max is the maximum number of times we want to run the code
     for (i = 1; i <= N_max; i++)
     {
        
