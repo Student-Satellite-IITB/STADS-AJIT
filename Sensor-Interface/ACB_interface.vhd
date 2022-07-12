@@ -47,26 +47,28 @@ end ACB_interface;
 
 architecture mixed of ACB_interface is
 
-    type FSM is (Idle, onepixel, twopixels, threepixels, fourpixels, fivepixels, sixpixels, one_word);
+    type FSM is (Idle, onepixel, twopixels, threepixels, fourpixels, one_word);
     signal current_state, next_state : FSM;
     signal written_pixel: std_logic := '0';
     signal write_to : std_logic_vector(5 downto 0);
     
     begin
-
-    clocked_input: process(In_clock)
-        begin
-        If (line_valid = '1' and frame_valid = '1' and in_ack = '1') then
-            If (In_clock'event and In_clock = '1') then
-                write_data((to_integer(unsigned(write_to)) + 9) downto to_integer(unsigned(write_to))) <= In_Data; 
-                written_pixel <= '1';
-            end if;
-        end if;
-        end process clocked_input;
+	 
+	 
+    --clocked_input: process(In_clock)
+    --    begin
+    --    If (line_valid = '1' and frame_valid = '1' and in_ack = '1') then
+    --        If (In_clock'event and In_clock = '1') then
+    --            write_data((to_integer(unsigned(write_to)) + 9) downto to_integer(unsigned(write_to))) <= In_Data; 
+    --            written_pixel <= '1';
+    --        end if;
+    --   end if;
+    --    end process clocked_input;
 
     FSM_state : process(written_pixel)
         begin
-        if(written_pixel = '1') then
+		  
+        if(In_clock'event and In_clock = '1') then
             case current_state is
                 when Idle=> 
                     If (in_ack = '1') then
@@ -77,34 +79,42 @@ architecture mixed of ACB_interface is
                 when Onepixel =>
                     written_pixel <= '0';
                     write_to <= "000000";
+						  write_data((to_integer(unsigned(write_to)) + 9) downto to_integer(unsigned(write_to))) <= In_Data; 
+                    write_data(15 downto 10) <= "000000";                    
                     next_state <= twopixels;   
                 when Twopixels =>
                     written_pixel <= '0';
-                    write_to <= "001010";
+                    write_to <= "010000";
+						  write_data((to_integer(unsigned(write_to)) + 9) downto to_integer(unsigned(write_to))) <= In_Data; 
+                    write_data(31 downto 26) <= "000000";                    
                     next_state <= threepixels; 
                 when Threepixels =>
                     written_pixel <= '0';
-                    write_to <= "010100";
+                    write_to <= "100000";
+						  write_data((to_integer(unsigned(write_to)) + 9) downto to_integer(unsigned(write_to))) <= In_Data; 
+                    write_data(47 downto 42) <= "000000";                    
                     next_state <= fourpixels;        
                 when Fourpixels =>
                     written_pixel <= '0';
-                    write_to <= "011110";
-                    next_state <= Fivepixels;
-                when Fivepixels =>
-                    written_pixel <= '0';
-                    write_to <= "101000";
-                    next_state <= Sixpixels;
-                when Sixpixels =>
-                    written_pixel <= '0';
-                    write_to <= "110010"; 
-                    next_state <= one_word; 
+                    write_to <= "110000";
+						  write_data((to_integer(unsigned(write_to)) + 9) downto to_integer(unsigned(write_to))) <= In_Data; 
+                    write_data(63 downto 58) <= "000000";
+                    next_state <= one_word;
                 when one_word =>
                     written_pixel <='0';
                     in_ack <= '0';
-                    write_data(63 downto 60) <= "0000";
                     out_ack <= '1';
                     next_state <= Idle;       
-            end case;        
+            end case;  
+				
         end if;    
     end process;
+	 
+	 FSM_transition: process(next_state)
+		begin
+		
+		current_state <= next_state;
+		
+	 end process;	
+		
     end mixed;
