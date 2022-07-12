@@ -174,6 +174,16 @@ void sm_4_star(double four_stars[][4], double sm_3D_vecs[][4], int sm_IS[][2], d
 
     int SIM[N_GC][6];
     memset(SIM, 0, N_GC * sizeof(SIM[0]));
+
+    int SIM_indx_arr[1000];
+    memset(SIM_indx_arr,0, 1000*sizeof(SIM_indx_arr[0]));
+
+    int SIM_flags[N_GC];
+    memset(SIM_flags, 0, N_GC*sizeof(SIM_flags[0]));
+
+    int top_indx = 0;
+
+
     
     double p[6];
     int ct = 0;
@@ -218,16 +228,33 @@ void sm_4_star(double four_stars[][4], double sm_3D_vecs[][4], int sm_IS[][2], d
             if (k_start == k_end)
             {
                 SIM[sm_K_vec_arr[k_end - 1][0]][j] = 1;
+
+                SIM_indx_arr[top_indx]=sm_K_vec_arr[k_end-1][0];
+                top_indx ++;
             }
             else
-            {
+             {   
                 for (i = k_start; i <= k_end; i++)
                 {
                     SIM[sm_K_vec_arr[i - 1][0]][j] = 1; 
                     SIM[sm_K_vec_arr[i - 1][1]][j] = 1;
+
+                    SIM_indx_arr[top_indx]=sm_K_vec_arr[i-1][0];
+                    // printf("smkvecarr0 = %d, %d\n", sm_K_vec_arr[i-1][0], top_indx);
+                    SIM_indx_arr[top_indx+1]=sm_K_vec_arr[i-1][1];
+                    // printf("smkvecarr1 = %d, %d\n", sm_K_vec_arr[i-1][1], top_indx);
+                    top_indx +=2;
+                    
                 }
+                // printf("end = %d\n", top_indx);
             }
         }
+    }
+    
+    
+    for(i=0; i<top_indx; i++)
+    {
+        SIM_flags[SIM_indx_arr[i]] = 1;
     }
 
     for (j = 0; j < 4; j++)
@@ -239,9 +266,33 @@ void sm_4_star(double four_stars[][4], double sm_3D_vecs[][4], int sm_IS[][2], d
             if (SIM[k][0] == checks[j][0] && SIM[k][1] == checks[j][1] && SIM[k][2] == checks[j][2] && SIM[k][3] == checks[j][3] && SIM[k][4] == checks[j][4] && SIM[k][5] == checks[j][5])
             {
                 matched_rows++;
+                printf("k = %d\n", k);
                 temp = k;
             }
         }
+
+        // for (i = 0; i <top_indx; i++)
+        // {
+        //       k = SIM_indx_arr[i];
+
+        //      if(SIM_flags[SIM_indx_arr[i]]==1)
+        //   { 
+        //     if (SIM[k][0] == checks[j][0]
+        //      && SIM[k][1] == checks[j][1]
+        //      && SIM[k][2] == checks[j][2]
+        //      && SIM[k][3] == checks[j][3] 
+        //      && SIM[k][4] == checks[j][4] 
+        //      && SIM[k][5] == checks[j][5])
+        //     {
+        //         matched_rows++;
+        //         // printf("k = %d\n", k);
+        //         temp = k;
+        //     }
+
+        //     SIM_flags[k]=0;
+        //   }
+        // }
+
         if (matched_rows == 1)
         {
             int flag = already_matched(sm_IS, (int)four_stars[j][0]);
@@ -256,15 +307,7 @@ void sm_4_star(double four_stars[][4], double sm_3D_vecs[][4], int sm_IS[][2], d
                         break;
                     }
                 }
-                // for (k = 0; k < N_GC; k++)
-                // {
-                //     if (sm_IS[k][0] == -1)
-                //     {
-                //         sm_IS[k][0] = (int)four_stars[j][0];
-                //         sm_IS[k][1] = temp;
-                //         break;
-                    //     }
-                    // }
+                
                 for (int k = 0; k < N_i; k++)
                 {
                     if (sm_IS[k][0]==-1)
@@ -309,7 +352,7 @@ void sm_validate(double sm_3D_vecs[][4], int sm_IS[][2], double body_vecs_IS[][4
             continue;
         for (j = i+1; j< N_i-1; j++){
             if (sm_IS[j][0] != -1){
-                double d_ij = fabs(sm_3D_vecs[i][1]*sm_3D_vecs[j][1] + sm_3D_vecs[i][2]*sm_3D_vecs[j][2] + sm_3D_vecs[i][3]*sm_3D_vecs[j][3]);
+                double d_ij = fabs(body_vecs_IS[i][1]*body_vecs_IS[j][1] + body_vecs_IS[i][2]*body_vecs_IS[j][2] + body_vecs_IS[i][3]*body_vecs_IS[j][3]);
                 double d_ij_gc = fabs(sm_GC[sm_IS[i][1] - 1][1]*sm_GC[sm_IS[j][1] - 1][1] + sm_GC[sm_IS[i][1] - 1][2]*sm_GC[sm_IS[j][1] - 1][2] + sm_GC[sm_IS[i][1] - 1][3]*sm_GC[sm_IS[j][1] - 1][3]);
                 if (fabs(d_ij/d_ij_gc - 1) < tol/100){
                     votes[i]++;
