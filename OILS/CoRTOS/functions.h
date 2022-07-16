@@ -9,6 +9,29 @@
 
 //RGA functions
 
+void sort(double centroids_st[][3], unsigned long pixel_track[MAX_STARS], int tot_stars){
+	int i, j, k;
+    double temp_st[3];
+	unsigned long temp_pt;
+    i = 0;
+	for (i = 0; i < tot_stars; i++){
+        j = 0;
+		for (j = 0; j < tot_stars-i-1; j++){
+			if(pixel_track[j] < pixel_track[j + 1]){
+				temp_pt = pixel_track[j];
+				pixel_track[j] = pixel_track[j + 1];
+				pixel_track[j + 1] = temp_pt;
+                k = 0;
+				for (k = 0; k < 3; k++){
+					temp_st[k] = centroids_st[j][k];
+					centroids_st[j][k] = centroids_st[j + 1][k];
+					centroids_st[j + 1][k] = temp_st[k];
+				}
+			}
+		}
+	}
+}
+
 void getData(unsigned short p_i, unsigned short p_j, unsigned short* star_num, unsigned long x_sum[], unsigned long y_sum[], unsigned long pixel_sum[], unsigned short num_pixels[], short arr_out_img[BREADTH + 2][LENGTH + 2]){
     // base case
     if (arr_out_img[p_j][p_i] <= THRESHOLD)
@@ -55,6 +78,8 @@ void regionGrowth(short arr_out_img[BREADTH + 2][LENGTH + 2], double centroids_s
     unsigned long y_sum[MAX_STARS] = {0};
     unsigned long pixel_sum[MAX_STARS] = {0};
     unsigned short num_pixels[MAX_STARS] = {0};
+    unsigned long pixel_track[MAX_STARS] = {0};
+
 
     int i = 0;
     int j = 0;
@@ -77,10 +102,14 @@ void regionGrowth(short arr_out_img[BREADTH + 2][LENGTH + 2], double centroids_s
             centroids_st[valid_stars-1][0] = valid_stars;
             centroids_st[valid_stars-1][1] = ((double)x_sum[k] / (double)pixel_sum[k] - ((double)(LENGTH / 2) + 0.5)) * PIXEL_WIDTH;
             centroids_st[valid_stars-1][2] = (-1 * ((double)y_sum[k] / (double)pixel_sum[k] - ((double)(BREADTH / 2) + 0.5))) * PIXEL_WIDTH;
+            pixel_track[valid_stars-1] = pixel_sum[k];        
         }
     }
 
     *tot_stars += valid_stars;
+    sort(centroids_st, pixel_track, *tot_stars);
+	if (*tot_stars > NUM_MAX_STARS)
+		*tot_stars = NUM_MAX_STARS;
     return;
 }
 
@@ -117,10 +146,10 @@ void sm_4_star_circulate(double sm_3D_vecs[][4], int *N_circ, int N_i)
     *N_circ++;
 }
 
-int already_matched(int sm_IS[][2], int indx)
+int already_matched(int sm_IS[][2], int indx, int N_i)
 {   
     int i;
-    for (i = 0; i < N_GC; i++)
+    for (i = 0; i < N_i; i++)
     {
         if (sm_IS[i][0] == indx)
         {
@@ -130,7 +159,7 @@ int already_matched(int sm_IS[][2], int indx)
     return 0;
 }
 
-void sm_4_star(double four_stars[][4], double sm_3D_vecs[][4], int sm_IS[][2], int sm_K_vec_arr[][3], int *N_match, int N_i, double q, double m)
+void sm_4_star(double four_stars[][4], double sm_3D_vecs[][4], int sm_IS[][2], double body_vecs_IS[][4], int sm_K_vec_arr[][3], int *N_match, int N_i, double q, double m, int N_is)
 {   
     int i=0;
     int j=0;
@@ -138,6 +167,17 @@ void sm_4_star(double four_stars[][4], double sm_3D_vecs[][4], int sm_IS[][2], i
 
     int SIM[N_GC][6];
     memset(SIM, 0, N_GC * sizeof(SIM[0]));
+
+    int SIM_indx_arr[1000];
+    memset(SIM_indx_arr,0, 1000*sizeof(SIM_indx_arr[0]));
+
+    int SIM_flags[N_GC];
+    memset(SIM_flags, 0, N_GC*sizeof(SIM_flags[0]));
+
+    int top_indx = 0;
+
+    
+
     
     double p[6];
     int ct = 0;
@@ -182,6 +222,8 @@ void sm_4_star(double four_stars[][4], double sm_3D_vecs[][4], int sm_IS[][2], i
             if (k_start == k_end)
             {
                 SIM[sm_K_vec_arr[k_end - 1][0]][j] = 1;
+                SIM_indx_arr[top_indx]=sm_K_vec_arr[k_end-1][0];
+                top_indx ++;
             }
             else
             {
@@ -189,26 +231,55 @@ void sm_4_star(double four_stars[][4], double sm_3D_vecs[][4], int sm_IS[][2], i
                 {
                     SIM[sm_K_vec_arr[i - 1][0]][j] = 1; 
                     SIM[sm_K_vec_arr[i - 1][1]][j] = 1;
+
+                    if(SIM_flags[sm_K_vec_arr[i - 1][0]] == 0) {
+                        SIM_flags[sm_K_vec_arr[i - 1][0]] = 1;
+                        SIM_indx_arr[top_indx]=sm_K_vec_arr[i-1][0];
+                        top_indx++;
+                    }
+
+                    if(SIM_flags[sm_K_vec_arr[i - 1][1]] == 0) {
+                        SIM_flags[sm_K_vec_arr[i - 1][1]] = 1;
+                        SIM_indx_arr[top_indx]=sm_K_vec_arr[i-1][1];
+                        top_indx++;
+                    }
+                    
                 }
             }
         }
     }
 
+
     for (j = 0; j < 4; j++)
     {
         int matched_rows = 0;
-        int temp = 0;         
-        for (k = 0; k < N_GC; k++)
+        int temp = 0;  
+
+        for(i=0; i<top_indx; i++)
         {
-            if (SIM[k][0] == checks[j][0] && SIM[k][1] == checks[j][1] && SIM[k][2] == checks[j][2] && SIM[k][3] == checks[j][3] && SIM[k][4] == checks[j][4] && SIM[k][5] == checks[j][5])
-            {
-                matched_rows++;
-                temp = k;
-            }
+            SIM_flags[SIM_indx_arr[i]] = 1;
         }
+
+        for (i = 0; i <top_indx; i++)
+        {
+             k = SIM_indx_arr[i];
+
+            if(SIM_flags[SIM_indx_arr[i]]==1)
+            {
+
+                if (SIM[k][0] == checks[j][0] && SIM[k][1] == checks[j][1] && SIM[k][2] == checks[j][2] && SIM[k][3] == checks[j][3] && SIM[k][4] == checks[j][4] && SIM[k][5] == checks[j][5])
+                {
+                    matched_rows++;
+                    temp = k;
+                }
+                SIM_flags[k]=0;
+            }
+
+        }
+        
         if (matched_rows == 1)
         {
-            int flag = already_matched(sm_IS, (int)four_stars[j][0]);
+            int flag = already_matched(sm_IS, (int)four_stars[j][0], N_is);
             if (flag == 0)
             {
                 (*N_match)++;
@@ -220,12 +291,18 @@ void sm_4_star(double four_stars[][4], double sm_3D_vecs[][4], int sm_IS[][2], i
                         break;
                     }
                 }
+                k = 0;
                 for (k = 0; k < N_GC; k++)
                 {
                     if (sm_IS[k][0] == -1)
                     {
                         sm_IS[k][0] = (int)four_stars[j][0];
+                        body_vecs_IS[k][0] = four_stars[j][0];
                         sm_IS[k][1] = temp;
+                        i = 1;
+                        for (i = 1; i < 4; i++){
+                            body_vecs_IS[k][i] = four_stars[j][i];
+                        }
                         break;
                     }
                 }
@@ -249,7 +326,7 @@ void sm_gnrt_3D_vec(double sm_3D_vecs[][4], double sm_sorted_UIS[][3], int N_i)
     }
 }
 
-void sm_validate(double sm_3D_vecs[][4], int sm_IS[][2], double sm_GC[][4], int *N_is, int N_i, double tol, double p_1, double p_2){
+void sm_validate(double sm_3D_vecs[][4], int sm_IS[][2], double body_vecs_IS[][4], double sm_GC[][4], int *N_is, int N_i, double tol, double p_1, double p_2){
     int i, j;
     int N_new = *N_is;
     int votes[N_i];
@@ -286,6 +363,7 @@ void sm_validate(double sm_3D_vecs[][4], int sm_IS[][2], double sm_GC[][4], int 
             continue;
         if (votes[i] < N_LB){
             sm_IS[i][0] = -1;
+            body_vecs_IS[i][0] = -1;
             // printf("%d discarded, %d votes \n", i, votes[i]);
             N_new--;
         }
@@ -297,11 +375,37 @@ void sm_validate(double sm_3D_vecs[][4], int sm_IS[][2], double sm_GC[][4], int 
             continue;
         if (votes[i] < N_UB){
             sm_IS[i][0] = -1;
+            body_vecs_IS[i][0] = -1;
             // printf("%d discarded, %d votes \n\n\n", i, votes[i]);
             N_new--;
         }
     }
     *N_is = N_new;
+}
+
+void bubbleSort(double arr[][3], int n)
+{
+    int i, j;
+    double temp[3];
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < n - i - 1; j++)
+        {
+            if (arr[j][1] * arr[j][1] + arr[j][2] * arr[j][2] > arr[j + 1][1] * arr[j + 1][1] + arr[j + 1][2] * arr[j + 1][2])
+            {
+                // swap the elements
+                temp[0] = arr[j][0];
+                temp[1] = arr[j][1];
+                temp[2] = arr[j][2];
+                arr[j][0] = arr[j + 1][0];
+                arr[j][1] = arr[j + 1][1];
+                arr[j][2] = arr[j + 1][2];
+                arr[j + 1][0] = temp[0];
+                arr[j + 1][1] = temp[1];
+                arr[j + 1][2] = temp[2];
+            }
+        }
+    }
 }
 
 void starMatching(double centroids_st[MAX_STARS][3], int tot_stars, double data[3][MAX_STARS], int input_ids[50], int star_ids[50], int* matched_stars){
@@ -323,9 +427,9 @@ void starMatching(double centroids_st[MAX_STARS][3], int tot_stars, double data[
     // Number of identified stars
     int N_is = 0;
 
-    double tol = 0.5;
-    double p_1 = 35;
-    double p_2 = 80;
+    double tol = TOL;
+    double p_1 = P1;
+    double p_2 = P2;
 
     // Constants for using the k vector table (to be used in the 4 star matching)
     double m = (Y_MAX - Y_MIN + 2 * EPSILON) / (N_KVEC_PAIRS - 1);
@@ -333,9 +437,15 @@ void starMatching(double centroids_st[MAX_STARS][3], int tot_stars, double data[
 
     // Array for storing the Identified Stars
     int sm_IS[N_GC][2];
+    // Array for storing body-frame vectors of Identified stars
+    double body_vecs_IS[N_GC][4];
+
+    //Sorting the UIS according to euclidean distance
+    bubbleSort(centroids_st, N_i);
 
     // Initialize a block of memory to -1
     memset(sm_IS, -1, N_GC * sizeof(sm_IS[0]));
+    memset(body_vecs_IS, -1, N_GC * sizeof(body_vecs_IS[0]));
 
     // Array to store body frame vectors of extracted stars from FE block
     double sm_3D_vecs[N_i][4];
@@ -368,7 +478,7 @@ void starMatching(double centroids_st[MAX_STARS][3], int tot_stars, double data[
             }
 
             // Perform 4 star N star algorithm
-            sm_4_star(four_stars, sm_3D_vecs, sm_IS, sm_K_vec_arr, &N_match, N_i, q, m);
+            sm_4_star(four_stars, sm_3D_vecs, sm_IS, body_vecs_IS, sm_K_vec_arr, &N_match, N_i, q, m, N_is);
 
             // Decrement matched stars from those detected from FE block for next iteration
             N_uis -= N_match;
@@ -393,7 +503,7 @@ void starMatching(double centroids_st[MAX_STARS][3], int tot_stars, double data[
         }
     }
 
-    sm_validate(sm_3D_vecs, sm_IS, sm_GC, &N_is, N_i, tol, p_1, p_2);
+    sm_validate(sm_3D_vecs, sm_IS, body_vecs_IS, sm_GC, &N_is, N_i, tol, p_1, p_2);
 
     // Index variable for organising SM output
     int data_index = 0;
@@ -416,9 +526,9 @@ void starMatching(double centroids_st[MAX_STARS][3], int tot_stars, double data[
                 star_ids[data_index] = sm_IS[i][1];
 
                 // Storing body frame components of matched stars in respective arrays
-                x_body[data_index] = sm_3D_vecs[sm_IS[i][0] - 1][3];
-                y_body[data_index] = sm_3D_vecs[sm_IS[i][0] - 1][1];
-                z_body[data_index] = sm_3D_vecs[sm_IS[i][0] - 1][2];
+                x_body[data_index] = body_vecs_IS[i][3];
+                y_body[data_index] = body_vecs_IS[i][1];
+                z_body[data_index] = body_vecs_IS[i][2];
 
                 // Storinng intertial frame components of matched stars in respective arrays
                 x_inertial[data_index] = sm_GC[sm_IS[i][1] - 1][1];

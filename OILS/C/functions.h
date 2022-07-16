@@ -252,46 +252,47 @@ void sm_4_star(double four_stars[][4], double sm_3D_vecs[][4], int sm_IS[][2], d
     }
     
     
-    for(i=0; i<top_indx; i++)
-    {
-        SIM_flags[SIM_indx_arr[i]] = 1;
-    }
-
     for (j = 0; j < 4; j++)
     {
         int matched_rows = 0;
-        int temp = 0;         
-        for (k = 0; k < N_GC; k++)
+        int temp = 0;
+
+        for(i=0; i<top_indx; i++)
         {
-            if (SIM[k][0] == checks[j][0] && SIM[k][1] == checks[j][1] && SIM[k][2] == checks[j][2] && SIM[k][3] == checks[j][3] && SIM[k][4] == checks[j][4] && SIM[k][5] == checks[j][5])
-            {
-                matched_rows++;
-                printf("k = %d\n", k);
-                temp = k;
-            }
-        }
-
-        // for (i = 0; i <top_indx; i++)
+            SIM_flags[SIM_indx_arr[i]] = 1;
+        }    
+            
+        // for (k = 0; k < N_GC; k++)
         // {
-        //       k = SIM_indx_arr[i];
-
-        //      if(SIM_flags[SIM_indx_arr[i]]==1)
-        //   { 
-        //     if (SIM[k][0] == checks[j][0]
-        //      && SIM[k][1] == checks[j][1]
-        //      && SIM[k][2] == checks[j][2]
-        //      && SIM[k][3] == checks[j][3] 
-        //      && SIM[k][4] == checks[j][4] 
-        //      && SIM[k][5] == checks[j][5])
+        //     if (SIM[k][0] == checks[j][0] && SIM[k][1] == checks[j][1] && SIM[k][2] == checks[j][2] && SIM[k][3] == checks[j][3] && SIM[k][4] == checks[j][4] && SIM[k][5] == checks[j][5])
         //     {
         //         matched_rows++;
-        //         // printf("k = %d\n", k);
+        //         printf("k = %d\n", k);
         //         temp = k;
         //     }
-
-        //     SIM_flags[k]=0;
-        //   }
         // }
+
+        for (i = 0; i <top_indx; i++)
+        {
+              k = SIM_indx_arr[i];
+
+             if(SIM_flags[SIM_indx_arr[i]]==1)
+          { 
+            if (SIM[k][0] == checks[j][0]
+             && SIM[k][1] == checks[j][1]
+             && SIM[k][2] == checks[j][2]
+             && SIM[k][3] == checks[j][3] 
+             && SIM[k][4] == checks[j][4] 
+             && SIM[k][5] == checks[j][5])
+            {
+                matched_rows++;
+                // printf("k = %d\n", k);
+                temp = k;
+            }
+
+            SIM_flags[k]=0;
+          }
+        }
 
         if (matched_rows == 1)
         {
