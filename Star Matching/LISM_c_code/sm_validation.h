@@ -19,7 +19,7 @@ void sm_validate(long double sm_3D_vecs[][4], int sm_IS[][2], long double body_v
             continue;
         for (j = i+1; j< N_i-1; j++){
             if (sm_IS[j][0] != -1){
-                long double d_ij = fabs(sm_3D_vecs[i][1]*sm_3D_vecs[j][1] + sm_3D_vecs[i][2]*sm_3D_vecs[j][2] + sm_3D_vecs[i][3]*sm_3D_vecs[j][3]);
+                long double d_ij = fabs(body_vecs_IS[i][1]*body_vecs_IS[j][1] + body_vecs_IS[i][2]*body_vecs_IS[j][2] + body_vecs_IS[i][3]*body_vecs_IS[j][3]);
                 // printf("i: %d, j: %d, norm1: %Lf, norm2: %Lf, d_ij: %Lf\n", i, j, norm1, norm2, d_ij);
                 long double d_ij_gc = fabs(sm_GC[(int)sm_IS[i][1] - 1][1]*sm_GC[(int)sm_IS[j][1] - 1][1] + sm_GC[(int)sm_IS[i][1] - 1][2]*sm_GC[(int)sm_IS[j][1] - 1][2] + sm_GC[(int)sm_IS[i][1] - 1][3]*sm_GC[(int)sm_IS[j][1] - 1][3]);
                 // printf("i: %d, j: %d, norm_gc_1: %Lf, norm_gc_2: %Lf, d_ij_gc: %Lf\n", i, j, norm_gc_1, norm_gc_2, d_ij_gc);

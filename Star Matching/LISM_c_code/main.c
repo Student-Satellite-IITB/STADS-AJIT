@@ -67,9 +67,9 @@ void sm(long double UIS[][3], int N_i)
     N_th = 8;
 
     //Constants for validation
-    double tol = 5;
-    double p_1 = 35;
-    double p_2 = 80;
+    double tol = TOL;
+    double p_1 = P1;
+    double p_2 = P2;
 
     //--------------------------------------------------------
     // constants for using the k vector table (to be used in the 4 star matching)
