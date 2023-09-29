@@ -11,7 +11,7 @@ Conceived in IIT Bombay, AJIT is one of India's first indigenously developed mic
 
 ## Repository Structure
  1. Feature Extraction (FE)
- >  * Repo currently has C and C++ codes
+ >  * Repo currently has C, C++ and CoRTOS codes
  >  * Inputs to Centroid Extraction algorithm are `Image_n.txt` files, hosted in [Feature Extraction/Test_cases](Feature%20Extraction/Test_cases)
  >  * Outputs of the Centroid Extraction algorithm are exported as `st_input_n.txt`. These have been placed under the [Star Matching Test_cases](Star%20Matching/Test_cases) folder. (Output from FE block acts as the input to the ST block)
  >  * There are two different Feature Extraction algorithms - region growth and pixel by pixel
